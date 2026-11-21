@@ -1,0 +1,12 @@
+*.mp4
+*.wav
+*.m4a
+*.part
+*.ytdl
+__pycache__/
+arbeit/*
+!arbeit/erledigte_videos.json
+!arbeit/stand.json
+!arbeit/automatik_log.txt
+google_zugang.json
+youtube_token.json

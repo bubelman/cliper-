@@ -1,0 +1,16 @@
+# Hier die Kanäle eintragen, aus denen automatisch Clips gemacht werden.
+# Eine Zeile pro Kanal. Zeilen mit # werden ignoriert.
+#
+# Twitch: einfach den Kanalnamen, z. B.   kanalname
+# YouTube: mit @ davor, z. B.             @kanalname
+#
+# Hinter Kanäle ohne Spiel (nur Kamera) "irl" schreiben, sonst wird nach einer Facecam gesucht.
+#
+# Wichtig: nur Streamer, die Clips erlauben (z. B. über eine Clipping-Kampagne).
+
+kaicenat irl
+ishowspeed irl
+jynxzi
+ohnepixel
+stableronaldo
+papaplatte
