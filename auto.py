@@ -12,7 +12,8 @@ sys.path.insert(0, str(HIER))
 
 KANAELE = HIER / "kanaele.txt"
 ERLEDIGT = HIER / "arbeit" / "erledigte_videos.json"
-ANZAHL = 10          # Clips pro Video
+ANZAHL = 20          # so viele Clips macht der Clipper pro Video
+BEHALTEN = 5         # davon werden nur die besten behalten und hochgeladen
 UNTERTITEL = False   # Untertitel automatisch einbrennen (True = an)
 CLIP_SEKUNDEN = 30   # Länge pro Clip
 VORLAUF_SEKUNDEN = 4 # so viele Sekunden vor dem Höhepunkt starten
@@ -219,6 +220,16 @@ def main():
 
     log("Bearbeite Clips (Facecam, Untertitel) ...")
     bearbeite_clips(wc, irl)
+
+    # Nur die besten Clips behalten (Bewertung des Clippers: Ton, Chat, Gesagtes)
+    clips = sorted(wc.STATE["clips"], key=lambda c: c.get("punkte", 0), reverse=True)
+    for c in clips[BEHALTEN:]:
+        datei = wc.AUSGABEORDNER / c.get("datei", "")
+        if datei.is_file():
+            datei.unlink()
+    wc.STATE["clips"] = clips[:BEHALTEN]
+    log("Beste Clips: " + ", ".join(f"{c.get('datei')} ({c.get('punkte', 0)} P.)"
+                                      for c in wc.STATE["clips"]))
 
     wc.stand_sichern()          # Titel und Clips für Claude in arbeit/stand.json
     erledigt.append(ziel)
