@@ -15,7 +15,7 @@ ERLEDIGT = HIER / "arbeit" / "erledigte_videos.json"
 ANZAHL = 20          # so viele Clips macht der Clipper pro Video
 BEHALTEN = 10        # die besten 10 werden hochgeladen; Claude wählt daraus die 5 für TikTok
 UNTERTITEL = False   # Untertitel automatisch einbrennen (True = an)
-CLIP_SEKUNDEN = 30   # Länge pro Clip
+CLIP_SEKUNDEN = 60   # Länge des Grund-Clips (Varianten werden daraus geschnitten)
 VORLAUF_SEKUNDEN = 4 # so viele Sekunden vor dem Höhepunkt starten
 MAX_MINUTEN = 120    # nur die ersten X Minuten eines Streams nutzen
 SPERRE = HIER / "arbeit" / "automatik_laeuft.txt"
@@ -193,7 +193,7 @@ def bearbeite_clips(wc, irl=False):
 # Test für mehr Watchtime (Levin, 22.11.2026): jeder Clip bekommt eine Variante
 # aus Länge und Vorlauf (Sekunden vor dem Höhepunkt). Geschnitten wird aus dem
 # fertigen 30-s-Clip, dessen Höhepunkt bei VORLAUF_SEKUNDEN liegt.
-VARIANTEN = [(15, 0), (20, 1), (15, 1), (20, 0), (30, VORLAUF_SEKUNDEN)]
+VARIANTEN = [(15, 0), (20, 0), (30, VORLAUF_SEKUNDEN), (60, VORLAUF_SEKUNDEN), (15, 1), (20, 1)]
 
 
 def teste_varianten(wc):
