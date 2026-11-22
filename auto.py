@@ -190,6 +190,37 @@ def bearbeite_clips(wc, irl=False):
             log(f"  Clip {nr}: Bearbeitung fehlgeschlagen ({fehler}) - Original bleibt")
 
 
+# Test für mehr Watchtime (Levin, 22.11.2026): jeder Clip bekommt eine Variante
+# aus Länge und Vorlauf (Sekunden vor dem Höhepunkt). Geschnitten wird aus dem
+# fertigen 30-s-Clip, dessen Höhepunkt bei VORLAUF_SEKUNDEN liegt.
+VARIANTEN = [(15, 0), (20, 1), (15, 1), (20, 0), (30, VORLAUF_SEKUNDEN)]
+
+
+def teste_varianten(wc):
+    for i, c in enumerate(wc.STATE["clips"]):
+        laenge, vor = VARIANTEN[i % len(VARIANTEN)]
+        c["variante"] = f"{laenge}s, {vor}s vor Höhepunkt"
+        if (laenge, vor) == (CLIP_SEKUNDEN, VORLAUF_SEKUNDEN):
+            continue
+        quelle = wc.AUSGABEORDNER / c["datei"]
+        if not quelle.is_file():
+            continue
+        ziel = quelle.with_name(f"{quelle.stem}_{laenge}s{vor}.mp4")
+        start = max(0, VORLAUF_SEKUNDEN - vor)
+        befehl = ["ffmpeg", "-y", "-loglevel", "error", "-ss", str(start), "-i", str(quelle),
+                  "-t", str(laenge), "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+                  "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(ziel)]
+        if subprocess.run(befehl).returncode == 0 and ziel.exists() and ziel.stat().st_size > 50000:
+            quelle.unlink()
+            c["datei"] = ziel.name
+            c["dauer"] = laenge
+            log(f"  {ziel.name}: Variante {c['variante']}")
+        else:
+            c["variante"] = f"{CLIP_SEKUNDEN}s, {VORLAUF_SEKUNDEN}s vor Höhepunkt"
+            if ziel.exists():
+                ziel.unlink()
+
+
 def main():
     liste = kanaele()
     if not liste:
@@ -265,6 +296,7 @@ def main():
             alt.rename(neu)
             c["datei"] = neu.name
     wc.STATE["kanal"] = kanal.lstrip("@")
+    teste_varianten(wc)
     log("Beste Clips: " + ", ".join(f"{c.get('datei')} ({c.get('punkte', 0)} P.)"
                                       for c in wc.STATE["clips"]))
 
