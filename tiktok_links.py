@@ -40,12 +40,12 @@ def lade_zu_github(clips):
     repo = os.environ["GITHUB_REPOSITORY"]
     tag = "clips-" + time.strftime("%Y%m%d-%H%M")
     subprocess.run(["gh", "release", "create", tag, *map(str, clips), "--repo", repo,
-                    "--title", tag, "--notes", "Clips für TikTok/YouTube (werden nach 4 Tagen gelöscht)"],
+                    "--title", tag, "--notes", "Clips für TikTok/YouTube (werden nach 8 Tagen gelöscht)"],
                    check=True)
     return {c.name: f"https://github.com/{repo}/releases/download/{tag}/{c.name}" for c in clips}
 
 
-def aufraeumen(tage=4):
+def aufraeumen(tage=8):
     repo = os.environ["GITHUB_REPOSITORY"]
     try:
         aus = subprocess.run(["gh", "release", "list", "--repo", repo, "--limit", "100",
@@ -101,7 +101,8 @@ def main():
 
     # Alte Einträge entfernen (Litterbox löscht nach 72 Stunden)
     links = {k: v for k, v in links.items()
-             if (ORDNER / k).exists() or time.time() - v.get("zeit", 0) < 72 * 3600}
+             if (ORDNER / k).exists() or time.time() - v.get("zeit", 0) <
+             (7 * 86400 if "github.com" in v.get("url", "") else 72 * 3600)}
     LINKS.write_text(json.dumps(links, indent=1, ensure_ascii=False), encoding="utf-8")
     print("\nFertig. Sag Claude jetzt: \"Clips sind hochgeladen\".")
 

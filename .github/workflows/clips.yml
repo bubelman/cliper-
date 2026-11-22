@@ -2,7 +2,8 @@ name: Clips machen
 
 on:
   schedule:
-    - cron: "17 11 * * *"   # jeden Tag 12:17 Uhr Winterzeit (13:17 Sommerzeit)
+    - cron: "17 4 * * *"    # 05:17 Uhr Winterzeit: Clips für den Puffer
+    - cron: "17 13 * * *"   # 14:17 Uhr Winterzeit: zweiter Lauf
   workflow_dispatch:         # von Hand starten: Actions -> Clips machen -> Run workflow
 
 permissions:
