@@ -31,6 +31,7 @@ jobs:
           sudo apt-get install -y -qq ffmpeg
           pip install --quiet torch --index-url https://download.pytorch.org/whl/cpu
           pip install --quiet -U -r requirements.txt
+          python -c "import cv2; assert not cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml').empty(), 'Gesichtserkennung fehlt'; print('OpenCV', cv2.__version__, 'Gesichtserkennung ok')"
 
       - name: Clips machen und hochladen
         run: python auto.py

@@ -1,4 +1,4 @@
 yt-dlp
 numpy
-opencv-python-headless
+opencv-python-headless<5   # ab Version 5 fehlt die Gesichtserkennung (Haar-Dateien)
 openai-whisper
