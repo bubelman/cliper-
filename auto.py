@@ -70,10 +70,37 @@ def neueste_videos(kanal, wie_viele=3):
     return urls
 
 
+YUNET = HIER / "modelle" / "face_detection_yunet_2023mar.onnx"
+_YUNET = {}
+
+
+def finde_gesichter(cv2, modell, bild):
+    """Gesichter als (x, y, w, h) in Pixeln. YuNet (genauer, auch mit Headset/seitlich),
+    sonst die alte Haar-Erkennung."""
+    if YUNET.exists():
+        try:
+            if "d" not in _YUNET:
+                _YUNET["d"] = cv2.FaceDetectorYN.create(str(YUNET), "", (320, 320), 0.6, 0.3, 50)
+            d = _YUNET["d"]
+            h, w = bild.shape[:2]
+            d.setInputSize((w, h))
+            _, treffer = d.detect(bild)
+            if treffer is None:
+                return []
+            return [(int(t[0]), int(t[1]), int(t[2]), int(t[3])) for t in treffer if t[2] >= 20]
+        except Exception as fehler:
+            log(f"  YuNet nicht nutzbar ({fehler}) - nehme Haar")
+    if modell is None:
+        return []
+    grau = cv2.cvtColor(bild, cv2.COLOR_BGR2GRAY)
+    return list(modell.detectMultiScale(grau, 1.1, 5, minSize=(28, 28)))
+
+
 def analysiere_bild(wc, video, proben=14):
     """Sucht Gesichter: feste Facecam-Position und/oder wo das Hauptgesicht ist."""
     cv2, modell = wc.hole_opencv()
-    if cv2 is None or modell is None:
+    if cv2 is None or (modell is None and not YUNET.exists()):
+        log("  Gesichtserkennung fehlt (OpenCV/Modell)")
         return {"facecam": None, "gesicht_x": None}
     cap = cv2.VideoCapture(str(video))
     gesamt = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) or 1
@@ -88,9 +115,8 @@ def analysiere_bild(wc, video, proben=14):
         hb, bb = bild.shape[:2]
         f = min(1.0, 1920 / bb)
         klein = cv2.resize(bild, (int(bb * f), int(hb * f)))
-        grau = cv2.cvtColor(klein, cv2.COLOR_BGR2GRAY)
         K = klein.shape
-        treffer = modell.detectMultiScale(grau, 1.1, 5, minSize=(28, 28))
+        treffer = finde_gesichter(cv2, modell, klein)
         boxen = [((x + w / 2) / K[1], (y + h / 2) / K[0], w / K[1], h / K[0])
                  for x, y, w, h in treffer]
         if boxen:
