@@ -63,3 +63,36 @@
 2026-11-22 13:52  10 Clips fertig. Lade für TikTok hoch ...
 2026-11-22 13:52  Fertig. Claude plant die Clips um 19:54 Uhr ein.
 2026-11-22 17:04  Neues Video: https://www.twitch.tv/videos/2937242599
+2026-11-22 20:34  Neues Video: https://www.twitch.tv/videos/2936324446
+2026-11-22 21:37  Bearbeite Clips (Facecam, Untertitel) ...
+2026-11-22 21:37    Clip 1: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:37    Clip 2: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:38    Clip 3: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:39    Clip 4: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:39    Clip 5: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:40    Clip 6: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:40    Clip 7: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:41    Clip 8: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:42    Clip 9: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:42    Clip 10: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:43    Clip 11: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:44    Clip 12: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:44    Clip 13: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:45    Clip 14: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:45    Clip 15: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:46    Clip 16: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:47    Clip 17: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-22 21:47    Clip 18: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:48    Clip 19: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:48    Clip 20: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-22 21:49    2026-11-22_stableronaldo_02_15s0.mp4: Variante 15s, 0s vor Höhepunkt
+2026-11-22 21:49    2026-11-22_stableronaldo_14_20s0.mp4: Variante 20s, 0s vor Höhepunkt
+2026-11-22 21:49    2026-11-22_stableronaldo_11_30s4.mp4: Variante 30s, 4s vor Höhepunkt
+2026-11-22 21:50    2026-11-22_stableronaldo_13_15s1.mp4: Variante 15s, 1s vor Höhepunkt
+2026-11-22 21:50    2026-11-22_stableronaldo_05_20s1.mp4: Variante 20s, 1s vor Höhepunkt
+2026-11-22 21:50    2026-11-22_stableronaldo_06_15s0.mp4: Variante 15s, 0s vor Höhepunkt
+2026-11-22 21:50    2026-11-22_stableronaldo_10_20s0.mp4: Variante 20s, 0s vor Höhepunkt
+2026-11-22 21:51    2026-11-22_stableronaldo_01_30s4.mp4: Variante 30s, 4s vor Höhepunkt
+2026-11-22 21:51  Beste Clips: 2026-11-22_stableronaldo_02_15s0.mp4 (100 P.), 2026-11-22_stableronaldo_14_20s0.mp4 (77 P.), 2026-11-22_stableronaldo_11_30s4.mp4 (71 P.), 2026-11-22_stableronaldo_20.mp4 (66 P.), 2026-11-22_stableronaldo_13_15s1.mp4 (62 P.), 2026-11-22_stableronaldo_05_20s1.mp4 (61 P.), 2026-11-22_stableronaldo_06_15s0.mp4 (60 P.), 2026-11-22_stableronaldo_10_20s0.mp4 (60 P.), 2026-11-22_stableronaldo_01_30s4.mp4 (58 P.), 2026-11-22_stableronaldo_09.mp4 (58 P.)
+2026-11-22 21:51  10 Clips fertig. Lade für TikTok hoch ...
+2026-11-22 21:51  Fertig. Claude plant die Clips um 19:54 Uhr ein.
