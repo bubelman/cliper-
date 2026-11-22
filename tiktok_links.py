@@ -4,7 +4,7 @@ Lädt alle fertigen Clips aus dem Ordner "clips" auf Litterbox hoch
 und speichert die Links in clips/tiktok_links.json.
 Claude liest diese Datei und plant die Clips über Metricool auf TikTok ein.
 """
-import json, time, uuid, urllib.request
+import json, os, subprocess, time, uuid, urllib.request
 from pathlib import Path
 
 ORDNER = Path(__file__).parent / "clips"
@@ -34,6 +34,31 @@ def lade_hoch(datei: Path) -> str:
     return text
 
 
+def lade_zu_github(clips):
+    """Auf GitHub Actions blockt Litterbox. Dort kommen die Clips als Release-Dateien
+    ins eigene Repository (öffentlich, kostenlos). Alte Releases räumt aufraeumen() weg."""
+    repo = os.environ["GITHUB_REPOSITORY"]
+    tag = "clips-" + time.strftime("%Y%m%d-%H%M")
+    subprocess.run(["gh", "release", "create", tag, *map(str, clips), "--repo", repo,
+                    "--title", tag, "--notes", "Clips für TikTok/YouTube (werden nach 4 Tagen gelöscht)"],
+                   check=True)
+    return {c.name: f"https://github.com/{repo}/releases/download/{tag}/{c.name}" for c in clips}
+
+
+def aufraeumen(tage=4):
+    repo = os.environ["GITHUB_REPOSITORY"]
+    try:
+        aus = subprocess.run(["gh", "release", "list", "--repo", repo, "--limit", "100",
+                              "--json", "tagName,createdAt"], capture_output=True, text=True, check=True).stdout
+        for r in json.loads(aus):
+            alt = time.time() - time.mktime(time.strptime(r["createdAt"][:19], "%Y-%m-%dT%H:%M:%S"))
+            if r["tagName"].startswith("clips-") and alt > tage * 86400:
+                subprocess.run(["gh", "release", "delete", r["tagName"], "--repo", repo,
+                                "--yes", "--cleanup-tag"], check=False)
+    except Exception as fehler:
+        print(f"Aufräumen übersprungen: {fehler}")
+
+
 def main():
     links = {}
     if LINKS.exists():
@@ -48,6 +73,14 @@ def main():
         return
 
     jetzt = time.time()
+    if os.environ.get("GITHUB_ACTIONS"):
+        aufraeumen()
+        neue = [c for c in clips if c.name not in links]
+        if neue:
+            for name, url in lade_zu_github(neue).items():
+                links[name] = {"url": url, "zeit": jetzt, "groesse": (ORDNER / name).stat().st_size}
+                print(f"   fertig: {url}")
+        clips = []
     for clip in clips:
         alt = links.get(clip.name)
         if alt and jetzt - alt.get("zeit", 0) < HALTBAR and alt.get("groesse") == clip.stat().st_size:

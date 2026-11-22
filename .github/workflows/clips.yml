@@ -35,6 +35,7 @@ jobs:
         run: python auto.py
         env:
           PYTHONUNBUFFERED: "1"
+          GH_TOKEN: ${{ github.token }}
 
       - name: Ergebnis speichern
         if: always()
