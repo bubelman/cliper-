@@ -229,6 +229,16 @@ def main():
         if datei.is_file():
             datei.unlink()
     wc.STATE["clips"] = clips[:BEHALTEN]
+
+    # Eindeutige Namen: Datum_Kanal_Nummer.mp4 (sonst gibt es jeden Tag wieder clip_01 ...)
+    vorne = time.strftime("%Y-%m-%d") + "_" + "".join(z for z in kanal.lstrip("@") if z.isalnum())
+    for c in wc.STATE["clips"]:
+        alt = wc.AUSGABEORDNER / c.get("datei", "")
+        neu = wc.AUSGABEORDNER / f"{vorne}_{int(c.get('nummer', 0)):02d}.mp4"
+        if alt.is_file():
+            alt.rename(neu)
+            c["datei"] = neu.name
+    wc.STATE["kanal"] = kanal.lstrip("@")
     log("Beste Clips: " + ", ".join(f"{c.get('datei')} ({c.get('punkte', 0)} P.)"
                                       for c in wc.STATE["clips"]))
 

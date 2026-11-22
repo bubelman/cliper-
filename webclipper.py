@@ -1825,6 +1825,7 @@ def stand_sichern():
     try:
         with SPERRE:
             daten = {"clips": list(STATE["clips"]), "titel": STATE.get("titel", ""),
+                     "kanal": STATE.get("kanal", ""),
                      "kurve": STATE.get("kurve", []), "peaks": STATE.get("peaks", []),
                      "dauer": STATE.get("dauer", 0),
                      "quelle": {"url": QUELLE.get("url", ""),
