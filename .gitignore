@@ -10,3 +10,4 @@ arbeit/*
 !arbeit/automatik_log.txt
 google_zugang.json
 youtube_token.json
+!arbeit/watchtime_notizen.md
