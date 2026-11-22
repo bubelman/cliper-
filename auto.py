@@ -180,6 +180,7 @@ def main():
     wc.CLIP_LAENGE = CLIP_SEKUNDEN
     wc.VORLAUF = VORLAUF_SEKUNDEN
     wc.MAX_LAENGE = MAX_MINUTEN * 60
+    wc.UNTERTITEL_SPRACHE = ""      # Sprache selbst erkennen (sonst wird Englisch als Deutsch abgetippt)
     wc.ARBEITSORDNER.mkdir(exist_ok=True)
     wc.AUSGABEORDNER.mkdir(exist_ok=True)
     wc.waehle_encoder()
