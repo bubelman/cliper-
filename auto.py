@@ -196,25 +196,94 @@ def bearbeite_clips(wc, irl=False):
 VARIANTEN = [(15, 0), (20, 0), (30, VORLAUF_SEKUNDEN), (60, VORLAUF_SEKUNDEN), (15, 1), (20, 1)]
 
 
+def stille_stellen(datei):
+    """Pausen im Ton (Start, Ende) - dort kann man sauber schneiden."""
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(datei), "-af",
+                        "silencedetect=noise=-32dB:d=0.25", "-f", "null", "-"],
+                       capture_output=True, text=True)
+    pausen, anfang = [], None
+    for zeile in r.stderr.splitlines():
+        if "silence_start:" in zeile:
+            try:
+                anfang = float(zeile.split("silence_start:")[1].split()[0])
+            except ValueError:
+                anfang = None
+        elif "silence_end:" in zeile and anfang is not None:
+            try:
+                pausen.append((anfang, float(zeile.split("silence_end:")[1].split()[0])))
+            except ValueError:
+                pass
+            anfang = None
+    return pausen
+
+
+def schnittpunkte(c, datei, laenge, vor, gesamt):
+    """Start und Ende so legen, dass nie mitten im Wort oder Satz geschnitten wird.
+
+    Start: Satzanfang (oder Sprechpause) kurz vor "Höhepunkt minus Vorlauf".
+    Ende: Satzende (oder Pause) möglichst nah an der Wunschlänge.
+    """
+    woerter = [w for w in (c.get("woerter") or []) if len(w) == 3]
+    pausen = stille_stellen(datei)
+    hoch = float(c.get("hoehepunkt", VORLAUF_SEKUNDEN) or VORLAUF_SEKUNDEN)
+    wunsch = max(0.0, hoch - vor)
+
+    anfaenge, enden = [], []
+    for i, (s, e, w) in enumerate(woerter):
+        vorher = woerter[i - 1] if i else None
+        if vorher is None or s - vorher[1] > 0.35 or vorher[2][-1:] in ".!?":
+            anfaenge.append(s)
+        danach = woerter[i + 1] if i + 1 < len(woerter) else None
+        if danach is None or danach[0] - e > 0.35 or w[-1:] in ".!?":
+            enden.append(e)
+    anfaenge += [b for a, b in pausen]          # Ende einer Pause = hier geht es los
+    enden += [a for a, b in pausen]             # Anfang einer Pause = hier ist Schluss
+
+    # Start: spätester Satzanfang knapp vor dem Wunschpunkt
+    passend = [t for t in anfaenge if wunsch - 2.5 <= t <= wunsch + 0.3]
+    if passend:
+        start = max(passend)
+    else:
+        laufend = [s for s, e, w in woerter if s <= wunsch < e]
+        start = laufend[0] if laufend else wunsch
+    start = max(0.0, start - 0.15)
+
+    # Ende: Satzende nah an der Wunschlänge, nie über das Clipende hinaus
+    ziel = min(start + laenge, gesamt)
+    passend = [t for t in enden if ziel - 3.0 <= t <= ziel + 2.0 and t - start >= 6 and t <= gesamt]
+    if passend:
+        ende = min(passend, key=lambda t: abs(t - ziel)) + 0.25
+    else:
+        laufend = [e for s, e, w in woerter if s < ziel < e]
+        ende = (laufend[0] + 0.25) if laufend else ziel
+    ende = min(ende, gesamt)
+    return round(start, 2), round(ende, 2)
+
+
 def teste_varianten(wc):
     for i, c in enumerate(wc.STATE["clips"]):
         laenge, vor = VARIANTEN[i % len(VARIANTEN)]
-        c["variante"] = f"{laenge}s, {vor}s vor Höhepunkt"
-        if (laenge, vor) == (CLIP_SEKUNDEN, VORLAUF_SEKUNDEN):
-            continue
         quelle = wc.AUSGABEORDNER / c["datei"]
         if not quelle.is_file():
             continue
+        try:
+            gesamt = float(wc.dauer_von(quelle)) or CLIP_SEKUNDEN
+        except Exception:
+            gesamt = CLIP_SEKUNDEN
+        start, ende = schnittpunkte(c, quelle, laenge, vor, gesamt)
+        dauer = max(3.0, ende - start)
         ziel = quelle.with_name(f"{quelle.stem}_{laenge}s{vor}.mp4")
-        start = max(0, VORLAUF_SEKUNDEN - vor)
-        befehl = ["ffmpeg", "-y", "-loglevel", "error", "-ss", str(start), "-i", str(quelle),
-                  "-t", str(laenge), "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
-                  "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(ziel)]
+        blende = f"afade=t=in:st=0:d=0.08,afade=t=out:st={max(0, dauer - 0.3):.2f}:d=0.3"
+        befehl = ["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{start:.2f}", "-i", str(quelle),
+                  "-t", f"{dauer:.2f}", "-af", blende, "-c:v", "libx264", "-preset", "veryfast",
+                  "-crf", "20", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(ziel)]
         if subprocess.run(befehl).returncode == 0 and ziel.exists() and ziel.stat().st_size > 50000:
             quelle.unlink()
             c["datei"] = ziel.name
-            c["dauer"] = laenge
-            log(f"  {ziel.name}: Variante {c['variante']}")
+            c["dauer"] = round(dauer, 1)
+            c["variante"] = f"{laenge}s, {vor}s vor Höhepunkt"
+            c["schnitt"] = f"{start:.1f}-{ende:.1f}"
+            log(f"  {ziel.name}: Variante {c['variante']}, Schnitt {start:.1f}-{ende:.1f} s")
         else:
             c["variante"] = f"{CLIP_SEKUNDEN}s, {VORLAUF_SEKUNDEN}s vor Höhepunkt"
             if ziel.exists():
@@ -237,6 +306,7 @@ def main():
     wc.CLIP_LAENGE = CLIP_SEKUNDEN
     wc.VORLAUF = VORLAUF_SEKUNDEN
     wc.MAX_LAENGE = MAX_MINUTEN * 60
+    wc.IGNORIERE_START = 600        # Startbildschirm/Intro der Streams (erste 10 Min.) überspringen
     wc.UNTERTITEL_SPRACHE = ""      # Sprache selbst erkennen (sonst wird Englisch als Deutsch abgetippt)
     wc.ARBEITSORDNER.mkdir(exist_ok=True)
     wc.AUSGABEORDNER.mkdir(exist_ok=True)
@@ -280,7 +350,11 @@ def main():
     bearbeite_clips(wc, irl)
 
     # Nur die besten Clips behalten (Bewertung des Clippers: Ton, Chat, Gesagtes)
-    clips = sorted(wc.STATE["clips"], key=lambda c: c.get("punkte", 0), reverse=True)
+    def wert(c):
+        # kaum Gesprochenes (Musik, Startbildschirm, stilles Spielen) = schwacher Clip
+        woerter = len((c.get("text") or "").split())
+        return c.get("punkte", 0) * (0.5 if woerter < 15 else 1.0)
+    clips = sorted(wc.STATE["clips"], key=wert, reverse=True)
     for c in clips[BEHALTEN:]:
         datei = wc.AUSGABEORDNER / c.get("datei", "")
         if datei.is_file():

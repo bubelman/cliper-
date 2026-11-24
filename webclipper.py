@@ -1207,7 +1207,12 @@ def arbeite(url, anzahl, hochformat, neu_laden, meine_nummer):
             return {"nummer": nummer, "datei": name, "start": start,
                     "start_text": zeit(start), "dauer": CLIP_LAENGE,
                     "punkte": punkte_je_stelle.get(moment, 0),
-                    "text": " ".join(w[2].strip() for w in (saetze.get(moment) or []))[:500]}
+                    "text": " ".join(w[2].strip() for w in (saetze.get(moment) or []))[:500],
+                    # fuer saubere Schnitte: Woerter und Hoehepunkt relativ zum Clipbeginn
+                    "hoehepunkt": round(float(moment - start), 2),
+                    "woerter": [[round(s - start, 2), round(e - start, 2), w.strip()]
+                                for s, e, w in (saetze.get(moment) or [])
+                                if 0 <= s - start <= CLIP_LAENGE]}
 
         clips = []
         from concurrent.futures import ThreadPoolExecutor
