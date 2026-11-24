@@ -193,7 +193,9 @@ def bearbeite_clips(wc, irl=False):
 # Test für mehr Watchtime (Levin, 22.11.2026): jeder Clip bekommt eine Variante
 # aus Länge und Vorlauf (Sekunden vor dem Höhepunkt). Geschnitten wird aus dem
 # fertigen 30-s-Clip, dessen Höhepunkt bei VORLAUF_SEKUNDEN liegt.
-VARIANTEN = [(15, 0), (20, 0), (30, VORLAUF_SEKUNDEN), (60, VORLAUF_SEKUNDEN), (15, 1), (20, 1)]
+# 24.11.2026: TikTok-Zuschauerbindung (11 Clips): nach 1 s nur noch 60 %, nach 3 s 26 %.
+# Deshalb kein langer Vorlauf mehr - der Höhepunkt kommt sofort.
+VARIANTEN = [(15, 0), (20, 0), (10, 0), (15, 1), (20, 1), (30, 0)]
 
 
 def stille_stellen(datei):
@@ -240,12 +242,14 @@ def schnittpunkte(c, datei, laenge, vor, gesamt):
     enden += [a for a, b in pausen]             # Anfang einer Pause = hier ist Schluss
 
     # Start: spätester Satzanfang knapp vor dem Wunschpunkt
-    passend = [t for t in anfaenge if wunsch - 2.5 <= t <= wunsch + 0.3]
+    passend = [t for t in anfaenge if wunsch - 0.8 <= t <= wunsch + 0.4]
     if passend:
         start = max(passend)
     else:
+        # nächster Wortanfang knapp nach dem Wunschpunkt (nie mitten im Wort, nie langer Vorlauf)
+        danach = [s for s, e, w in woerter if wunsch <= s <= wunsch + 0.6]
         laufend = [s for s, e, w in woerter if s <= wunsch < e]
-        start = laufend[0] if laufend else wunsch
+        start = danach[0] if danach else (laufend[0] if laufend else wunsch)
     start = max(0.0, start - 0.15)
 
     # Ende: Satzende nah an der Wunschlänge, nie über das Clipende hinaus
@@ -271,19 +275,41 @@ def teste_varianten(wc):
         except Exception:
             gesamt = CLIP_SEKUNDEN
         start, ende = schnittpunkte(c, quelle, laenge, vor, gesamt)
-        dauer = max(3.0, ende - start)
+        # Sprechpausen über 0,5 s herausschneiden (Jump-Cuts) - Leerlauf kostet Zuschauer
+        teile, pos = [], start
+        for a, b in stille_stellen(quelle):
+            a, b = a + 0.12, b - 0.12
+            if b - a < 0.5 or b <= start or a >= ende:
+                continue
+            a, b = max(a, start), min(b, ende)
+            if a - pos > 0.3:
+                teile.append((pos, a))
+            pos = b
+        if ende - pos > 0.3:
+            teile.append((pos, ende))
+        if not teile:
+            teile = [(start, ende)]
+        dauer = sum(b - a for a, b in teile)
         ziel = quelle.with_name(f"{quelle.stem}_{laenge}s{vor}.mp4")
-        blende = f"afade=t=in:st=0:d=0.08,afade=t=out:st={max(0, dauer - 0.3):.2f}:d=0.3"
-        befehl = ["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{start:.2f}", "-i", str(quelle),
-                  "-t", f"{dauer:.2f}", "-af", blende, "-c:v", "libx264", "-preset", "veryfast",
+        kette = []
+        for n, (a, b) in enumerate(teile):
+            kette.append(f"[0:v]trim={a:.2f}:{b:.2f},setpts=PTS-STARTPTS[v{n}];"
+                         f"[0:a]atrim={a:.2f}:{b:.2f},asetpts=PTS-STARTPTS,"
+                         f"afade=t=in:d=0.03,afade=t=out:st={max(0, b - a - 0.05):.2f}:d=0.05[a{n}];")
+        kette.append("".join(f"[v{n}][a{n}]" for n in range(len(teile)))
+                     + f"concat=n={len(teile)}:v=1:a=1[v][a]")
+        befehl = ["ffmpeg", "-y", "-loglevel", "error", "-i", str(quelle),
+                  "-filter_complex", "".join(kette), "-map", "[v]", "-map", "[a]",
+                  "-c:v", "libx264", "-preset", "veryfast",
                   "-crf", "20", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(ziel)]
         if subprocess.run(befehl).returncode == 0 and ziel.exists() and ziel.stat().st_size > 50000:
             quelle.unlink()
             c["datei"] = ziel.name
             c["dauer"] = round(dauer, 1)
             c["variante"] = f"{laenge}s, {vor}s vor Höhepunkt"
-            c["schnitt"] = f"{start:.1f}-{ende:.1f}"
-            log(f"  {ziel.name}: Variante {c['variante']}, Schnitt {start:.1f}-{ende:.1f} s")
+            c["schnitt"] = f"{start:.1f}-{ende:.1f}, {len(teile) - 1} Pausen raus"
+            log(f"  {ziel.name}: Variante {c['variante']}, Schnitt {start:.1f}-{ende:.1f} s, "
+                f"{len(teile) - 1} Pausen raus, {dauer:.1f} s")
         else:
             c["variante"] = f"{CLIP_SEKUNDEN}s, {VORLAUF_SEKUNDEN}s vor Höhepunkt"
             if ziel.exists():
