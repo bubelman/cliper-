@@ -9,3 +9,5 @@
 - 23.11.2026, 19:30 (Routine): Zu wenig Daten, nichts an VARIANTEN geändert. Mind. 24 h online: 30s/4s (5 GTA-Clips: Ø 2,75 s = 9,2 % der Länge, Komplett 1,58 %, Ø 236 Views) und 40s/12s (5 Clips: Ø 3,60 s = 9,0 %, Komplett 0,66 %, Ø 230 Views) – praktisch gleich. 15s/0s, 15s/1s, 20s/0s, 20s/1s: je 1 Clip (Jynxzi 22.11.), Windsor zeigt dafür noch 0 Views; 60s/4s: noch keiner online. Für 24.11. eingeplant: je 1 Clip 15s/0s, 30s/4s, 15s/1s, 20s/0s, 60s/4s (stableronaldo). Achtung: TikTok-Post 23.11. 18:00 scheiterte mit „Metricool account limit“.
 
 - 24.11.2026: Levin hat die Jynxzi-Test-Clips Regierung, Wortspiel, Panik, Turm und „22.11. Jynxzi 14“ auf TikTok gelöscht (alle 0 Views). Sie zählen nicht für den Test. Ab jetzt schneidet auto.py auf Satzanfang/Satzende, Posting-Zeiten wechseln täglich.
+
+- 24.11.2026: Zuschauerbindung von 11 Clips: nach 1 s noch 60 %, nach 2 s 37 %, nach 3 s 26 %. Deshalb Varianten ohne 4-s-Vorlauf (15s/0s, 20s/0s, 10s/0s, 15s/1s, 20s/1s, 30s/0s), Start direkt am Höhepunkt, Sprechpausen über 0,5 s werden rausgeschnitten.
