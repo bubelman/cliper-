@@ -130,3 +130,36 @@
 2026-11-24 02:31  Beste Clips: 2026-11-24_stableronaldo_12_15s0.mp4 (100 P.), 2026-11-24_stableronaldo_10_20s0.mp4 (88 P.), 2026-11-24_stableronaldo_09_30s4.mp4 (76 P.), 2026-11-24_stableronaldo_01.mp4 (75 P.), 2026-11-24_stableronaldo_11_15s1.mp4 (75 P.), 2026-11-24_stableronaldo_04_20s1.mp4 (72 P.), 2026-11-24_stableronaldo_08_15s0.mp4 (71 P.), 2026-11-24_stableronaldo_15_20s0.mp4 (71 P.), 2026-11-24_stableronaldo_16_30s4.mp4 (69 P.), 2026-11-24_stableronaldo_05.mp4 (66 P.)
 2026-11-24 02:31  10 Clips fertig. Lade für TikTok hoch ...
 2026-11-24 02:32  Fertig. Claude plant die Clips um 19:54 Uhr ein.
+2026-11-24 14:50  Neues Video: https://www.twitch.tv/videos/2938478736
+2026-11-24 16:14  Bearbeite Clips (Facecam, Untertitel) ...
+2026-11-24 16:14    Clip 1: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-24 16:15    Clip 2: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-24 16:16    Clip 3: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:16    Clip 4: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:17    Clip 5: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:17    Clip 6: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:17    Clip 7: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:18    Clip 8: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:18    Clip 9: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-24 16:19    Clip 10: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:19    Clip 11: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:20    Clip 12: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-24 16:21    Clip 13: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:21    Clip 14: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:22    Clip 15: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:23    Clip 16: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:23    Clip 17: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:24    Clip 18: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:25    Clip 19: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:25    Clip 20: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-24 16:26    2026-11-24_papaplatte_01_15s0.mp4: Variante 15s, 0s vor Höhepunkt
+2026-11-24 16:26    2026-11-24_papaplatte_14_20s0.mp4: Variante 20s, 0s vor Höhepunkt
+2026-11-24 16:27    2026-11-24_papaplatte_04_30s4.mp4: Variante 30s, 4s vor Höhepunkt
+2026-11-24 16:27    2026-11-24_papaplatte_18_15s1.mp4: Variante 15s, 1s vor Höhepunkt
+2026-11-24 16:27    2026-11-24_papaplatte_06_20s1.mp4: Variante 20s, 1s vor Höhepunkt
+2026-11-24 16:27    2026-11-24_papaplatte_19_15s0.mp4: Variante 15s, 0s vor Höhepunkt
+2026-11-24 16:27    2026-11-24_papaplatte_16_20s0.mp4: Variante 20s, 0s vor Höhepunkt
+2026-11-24 16:28    2026-11-24_papaplatte_17_30s4.mp4: Variante 30s, 4s vor Höhepunkt
+2026-11-24 16:28  Beste Clips: 2026-11-24_papaplatte_01_15s0.mp4 (100 P.), 2026-11-24_papaplatte_14_20s0.mp4 (75 P.), 2026-11-24_papaplatte_04_30s4.mp4 (74 P.), 2026-11-24_papaplatte_03.mp4 (70 P.), 2026-11-24_papaplatte_18_15s1.mp4 (70 P.), 2026-11-24_papaplatte_06_20s1.mp4 (66 P.), 2026-11-24_papaplatte_19_15s0.mp4 (66 P.), 2026-11-24_papaplatte_16_20s0.mp4 (65 P.), 2026-11-24_papaplatte_17_30s4.mp4 (65 P.), 2026-11-24_papaplatte_05.mp4 (62 P.)
+2026-11-24 16:28  10 Clips fertig. Lade für TikTok hoch ...
+2026-11-24 16:28  Fertig. Claude plant die Clips um 19:54 Uhr ein.
