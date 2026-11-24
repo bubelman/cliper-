@@ -145,73 +145,6 @@ def analysiere_bild(wc, video, proben=14):
     return ergebnis
 
 
-def finde_cam_rahmen(wc, video, face, proben=10):
-    """Sucht den Rahmen der Facecam-Box: Kanten, die in allen Bildern an derselben
-    Stelle bleiben (das Spiel bewegt sich, der Rand der Kamera-Box nicht).
-    face = (Mitte x, Mitte y, Breite, Höhe) als Anteil. Ergebnis (x, y, b, h) oder None."""
-    cv2, _ = wc.hole_opencv()
-    if cv2 is None:
-        return None
-    import numpy as np
-    cap = cv2.VideoCapture(str(video))
-    gesamt = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) or 1
-    karten = []
-    for i in range(proben):
-        cap.set(cv2.CAP_PROP_POS_FRAMES, int(gesamt * (i + 0.5) / proben))
-        ok, bild = cap.read()
-        if not ok:
-            continue
-        hb, bb = bild.shape[:2]
-        klein = cv2.resize(bild, (960, int(hb * 960 / bb)))
-        grau = cv2.cvtColor(klein, cv2.COLOR_BGR2GRAY)
-        karten.append((cv2.Canny(grau, 40, 120) > 0).astype(np.float32))
-    cap.release()
-    if len(karten) < 4:
-        return None
-    # Kante zählt nur, wenn sie in den meisten Bildern da ist
-    fest = (np.mean(karten, axis=0) > 0.5).astype(np.float32)
-    # 1 Pixel Toleranz, falls die Kante leicht flackert
-    fest = cv2.dilate(fest, np.ones((3, 3), np.uint8))
-    H, B = fest.shape
-    mx, my, fw, fh = face[0] * B, face[1] * H, face[2] * B, face[3] * H
-
-    def suche(achse, von, bis, schritt, quer_von, quer_bis):
-        """Erste Linie (Spalte bzw. Zeile), die über die Quer-Strecke fast durchgehend ist."""
-        quer_von, quer_bis = max(0, int(quer_von)), min(H if achse == "x" else B, int(quer_bis))
-        if quer_bis - quer_von < 10:
-            return None
-        pos = int(von)
-        while (pos < bis if schritt > 0 else pos > bis):
-            if 0 <= pos < (B if achse == "x" else H):
-                linie = fest[quer_von:quer_bis, pos] if achse == "x" else fest[pos, quer_von:quer_bis]
-                if linie.mean() > 0.7:
-                    return pos
-            pos += schritt
-        return None
-
-    links = suche("x", mx - fw * 0.3, mx - fw * 4, -1, my - fh * 0.45, my + fh * 0.45)
-    rechts = suche("x", mx + fw * 0.3, mx + fw * 4, 1, my - fh * 0.45, my + fh * 0.45)
-    oben = suche("y", my - fh * 0.3, my - fh * 4, -1, mx - fw * 0.45, mx + fw * 0.45)
-    unten = suche("y", my + fh * 0.3, my + fh * 4, 1, mx - fw * 0.45, mx + fw * 0.45)
-    # Box am Bildrand: dann ist der Bildrand die Grenze
-    if links is None and mx - fw * 4 <= 0:
-        links = 0
-    if rechts is None and mx + fw * 4 >= B:
-        rechts = B
-    if oben is None and my - fh * 4 <= 0:
-        oben = 0
-    if unten is None and my + fh * 4 >= H:
-        unten = H
-    if None in (links, rechts, oben, unten):
-        return None
-    b, h = (rechts - links) / B, (unten - oben) / H
-    # Plausibel? Box muss das Gesicht deutlich enthalten und darf nicht riesig sein
-    if not (face[2] * 1.3 < b < 0.6 and face[3] * 1.3 < h < 0.7):
-        return None
-    rand = 2 / B     # Rahmenlinie selbst weglassen
-    return (links / B + rand, oben / H + rand, b - 2 * rand, h - 2 * rand)
-
-
 def bearbeite_clips(wc, irl=False):
     """Facecam oben + Spiel unten, sonst Ausschnitt aufs Gesicht. Dazu Untertitel."""
     wc.UNTERTITEL_SPRACHE = ""          # Sprache automatisch erkennen
@@ -225,36 +158,20 @@ def bearbeite_clips(wc, irl=False):
         qb, qh = wc.masse_von(master)
         if bild["facecam"] and not irl:
             mx, my, mw, mh = bild["facecam"]
-            rahmen = finde_cam_rahmen(wc, master, bild["facecam"])
-            if rahmen:
-                x, y, b, h = rahmen        # genau die Kamera-Box, nichts vom Spiel drumherum
-                art = "Kamera-Box"
-            else:
-                # Box nicht gefunden: enger Bereich ums Gesicht (Kopf und Schultern)
-                h_px = min(qh, mh * qh * 2.4)
-                b_px = min(qb, h_px * 1080 / 672)
-                b, h = b_px / qb, h_px / qh
-                x = min(max(0.0, mx - b / 2), 1 - b)
-                y = min(max(0.0, my - h / 2 + h * 0.08), 1 - h)
-                art = "Gesicht"
-            # Höhe des Facecam-Streifens passend zur Box wählen, damit kaum etwas abgeschnitten wird
-            seiten = (b * qb) / max(1.0, h * qh)
-            anteil = min(0.42, max(0.28, (1080 / seiten) / 1920))
-            ziel_seiten = 1080 / (1920 * anteil)
-            if seiten < ziel_seiten:
-                # Box zu hoch: oben/unten etwas weglassen, Gesicht bleibt in der Mitte
-                neu_h = (b * qb / ziel_seiten) / qh
-                y = min(max(y, my - neu_h / 2), y + h - neu_h)
-                h = neu_h
-            # Spiel: mittlere 76 % der Breite, volle Höhe, ganz zeigen (Rest unscharf gefüllt).
-            # Liegt die Facecam am Rand, wird sie dabei mit abgeschnitten.
+            # Bereich um das Gesicht, im Seitenverhältnis des oberen Streifens (1080x576)
+            h_px = min(qh, mh * qh * 3.2)
+            b_px = min(qb, h_px * 1080 / 576)
+            b, h = b_px / qb, h_px / qh
+            x = min(max(0.0, mx - b / 2), 1 - b)
+            y = min(max(0.0, my - h / 2), 1 - h)
+            breite_spiel = (1344 / 1080) ** -1 * qh / qb   # Spiel: Mitte, volle Höhe
+            breite_spiel = min(1.0, breite_spiel)
             einst["facecam"] = {
-                "anteil": anteil,
+                "anteil": 0.3,
                 "face": {"x": x, "y": y, "b": b, "h": h},
-                "haupt": {"x": 0.12, "y": 0, "b": 0.76, "h": 1},
-                "einpassen": True,
+                "haupt": {"x": (1 - breite_spiel) / 2, "y": 0, "b": breite_spiel, "h": 1},
             }
-            log(f"  Clip {nr}: Facecam erkannt ({art}) -> Facecam oben, Spiel unten")
+            log(f"  Clip {nr}: Facecam erkannt -> Facecam oben, Spiel unten")
         elif bild["gesicht_x"] is not None:
             wert = bild["gesicht_x"]
             # fester Ausschnitt mittig aufs Gesicht
@@ -266,9 +183,7 @@ def bearbeite_clips(wc, irl=False):
                 einst["versatz_x"] = max(-1.0, min(1.0, 1 - cx / spiel))
             log(f"  Clip {nr}: Kamera-Stream -> Ausschnitt aufs Gesicht")
         else:
-            # Spiel ohne Kamera: mittlere 64 % ganz zeigen statt nur einen schmalen Streifen
-            einst["ganz"] = {"x": 0.18, "y": 0, "b": 0.64, "h": 1}
-            log(f"  Clip {nr}: kein Gesicht -> Spiel ganz, Rest unscharf")
+            log(f"  Clip {nr}: kein Gesicht -> Bildmitte")
         try:
             wc.rendere_clip(nr, einst)
         except Exception as fehler:
