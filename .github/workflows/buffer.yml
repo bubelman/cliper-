@@ -1,0 +1,31 @@
+name: Buffer einplanen
+on:
+  push:
+    branches: [main]
+    paths: [clips/buffer_plan.json]
+  workflow_dispatch:
+    inputs:
+      schema:
+        description: "API-Schema ins Log schreiben"
+        required: false
+        default: "nein"
+concurrency:
+  group: buffer
+permissions:
+  contents: write
+jobs:
+  posten:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bei Buffer einplanen
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: python buffer_posten.py ${{ github.event.inputs.schema == 'ja' && '--schema' || '' }}
+      - name: Ergebnis speichern
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add clips/buffer_plan.json || true
+          git diff --cached --quiet || (git commit -m "Buffer: Status aktualisiert [skip ci]" && git pull --rebase && git push)

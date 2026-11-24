@@ -1,0 +1,99 @@
+"""Plant Clips über die Buffer-API ein (TikTok + YouTube Shorts).
+
+Liest clips/buffer_plan.json (Liste von Einträgen):
+  {"id": "...", "url": "<öffentlicher Video-Link>", "text": "...", "title": "...",
+   "network": "tiktok" | "youtube", "due": "2026-11-25T18:47:00+01:00", "status": "offen"}
+und schreibt status ("geplant" / "fehler"), buffer_id und fehler zurück.
+Der API-Key kommt aus dem GitHub-Secret BUFFER_API_KEY.
+"""
+import json, os, sys, urllib.request
+from pathlib import Path
+
+PLAN = Path(__file__).parent / "clips" / "buffer_plan.json"
+KEY = os.environ.get("BUFFER_API_KEY", "").strip()
+API = "https://api.buffer.com"
+
+
+def gql(query, variables=None):
+    req = urllib.request.Request(API, data=json.dumps({"query": query, "variables": variables or {}}).encode(),
+                                 headers={"Content-Type": "application/json", "Authorization": f"Bearer {KEY}"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        return {"errors": [{"message": f"HTTP {e.code}: {e.read().decode()[:500]}"}]}
+
+
+def typ(name):
+    q = """query($n:String!){__type(name:$n){name kind inputFields{name type{name kind ofType{name kind ofType{name}}}}
+           fields{name args{name type{name kind ofType{name kind}}} type{name kind ofType{name kind}}} enumValues{name}}}"""
+    return (gql(q, {"n": name}).get("data") or {}).get("__type")
+
+
+def schema_zeigen():
+    for n in ["Query", "CreatePostInput", "PostInputMetaData", "YoutubePostMetadataInput",
+              "TikTokPostMetadataInput", "TiktokPostMetadataInput", "AssetsInput", "VideoAssetInput",
+              "SchedulingType", "ShareMode", "ChannelsInput"]:
+        t = typ(n)
+        if t:
+            print(f"--- {n}:", json.dumps(t, ensure_ascii=False)[:2500])
+
+
+def kanaele():
+    org = gql("{ account { organizations { id name } } }")
+    print("Organisationen:", json.dumps(org, ensure_ascii=False)[:500])
+    ids = [o["id"] for o in ((org.get("data") or {}).get("account") or {}).get("organizations", [])]
+    alle = []
+    for oid in ids:
+        r = gql("query($i:ChannelsInput!){ channels(input:$i){ id service name } }", {"i": {"organizationId": oid}})
+        print("Kanäle:", json.dumps(r, ensure_ascii=False)[:800])
+        alle += ((r.get("data") or {}).get("channels") or [])
+    return alle
+
+
+def main():
+    if not KEY:
+        print("BUFFER_API_KEY fehlt (GitHub Secret)."); sys.exit(1)
+    if "--schema" in sys.argv:
+        schema_zeigen()
+    plan = json.loads(PLAN.read_text(encoding="utf-8")) if PLAN.exists() else []
+    offen = [p for p in plan if p.get("status", "offen") == "offen"]
+    ch = kanaele()
+    if not offen:
+        print("Nichts offen."); return
+    kanal = {}
+    for c in ch:
+        s = (c.get("service") or "").lower()
+        kanal.setdefault("youtube" if "youtube" in s else "tiktok" if "tiktok" in s else s, c["id"])
+    m = """mutation($in: CreatePostInput!){ createPost(input:$in){
+             ... on PostActionSuccess { post { id dueAt } }
+             ... on MutationError { message } } }"""
+    for p in offen:
+        cid = kanal.get(p["network"])
+        if not cid:
+            p["status"], p["fehler"] = "fehler", f"kein {p['network']}-Kanal in Buffer verbunden"
+            continue
+        eingabe = {"text": p.get("text", ""), "channelId": cid, "schedulingType": "automatic",
+                   "mode": "customScheduled", "dueAt": p["due"],
+                   "assets": [{"video": {"url": p["url"]}}]}
+        if p["network"] == "youtube":
+            eingabe["metadata"] = {"youtube": {"title": p.get("title") or p.get("text", "")[:100],
+                                               "privacy": "public", "madeForKids": False,
+                                               "categoryId": "24"}}
+        if p["network"] == "tiktok" and p.get("title"):
+            eingabe["metadata"] = {"tiktok": {"title": p["title"]}}
+        r = gql(m, {"in": eingabe})
+        erg = ((r.get("data") or {}).get("createPost") or {})
+        if erg.get("post"):
+            p["status"], p["buffer_id"] = "geplant", erg["post"]["id"]
+            p.pop("fehler", None)
+            print("geplant:", p["id"], p["network"], p["due"])
+        else:
+            p["status"] = "fehler"
+            p["fehler"] = (erg.get("message") or json.dumps(r.get("errors"), ensure_ascii=False))[:400]
+            print("FEHLER:", p["id"], p["fehler"])
+    PLAN.write_text(json.dumps(plan, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()
