@@ -7,3 +7,5 @@
 - 22.11.2026, 19:35 (Routine): Zu wenig Daten, nichts geändert. Mind. 24 h online: nur 40s/12s (5 Clips, Ø 3,60 s, Komplett 0,66 %, Ø 230 Views). 30s/4s: 5 GTA-Clips von heute, noch keine 24 h (bisher Ø 2,90 s, 1,69 %). Neue Varianten (15s/20s/60s) noch ohne Zahlen. Puffer hatte nur alte Clips ohne Variante → morgen 5 davon gepostet.
 
 - 23.11.2026, 19:30 (Routine): Zu wenig Daten, nichts an VARIANTEN geändert. Mind. 24 h online: 30s/4s (5 GTA-Clips: Ø 2,75 s = 9,2 % der Länge, Komplett 1,58 %, Ø 236 Views) und 40s/12s (5 Clips: Ø 3,60 s = 9,0 %, Komplett 0,66 %, Ø 230 Views) – praktisch gleich. 15s/0s, 15s/1s, 20s/0s, 20s/1s: je 1 Clip (Jynxzi 22.11.), Windsor zeigt dafür noch 0 Views; 60s/4s: noch keiner online. Für 24.11. eingeplant: je 1 Clip 15s/0s, 30s/4s, 15s/1s, 20s/0s, 60s/4s (stableronaldo). Achtung: TikTok-Post 23.11. 18:00 scheiterte mit „Metricool account limit“.
+
+- 24.11.2026: Levin hat die Jynxzi-Test-Clips Regierung, Wortspiel, Panik, Turm und „22.11. Jynxzi 14“ auf TikTok gelöscht (alle 0 Views). Sie zählen nicht für den Test. Ab jetzt schneidet auto.py auf Satzanfang/Satzende, Posting-Zeiten wechseln täglich.
