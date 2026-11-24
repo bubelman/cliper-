@@ -1587,6 +1587,20 @@ def bild_bereich(rechteck, ziel_b, ziel_h):
             f"crop={ziel_b}:{ziel_h}")
 
 
+def bild_einpassen(rechteck, ziel_b, ziel_h):
+    """Bereich ganz zeigen (nichts abschneiden), Rest mit unscharfem Hintergrund füllen."""
+    x = max(0.0, min(0.999, float(rechteck.get("x", 0))))
+    y = max(0.0, min(0.999, float(rechteck.get("y", 0))))
+    b = max(0.02, min(1.0 - x, float(rechteck.get("b", 1))))
+    h = max(0.02, min(1.0 - y, float(rechteck.get("h", 1))))
+    return (f"crop=iw*{b:.5f}:ih*{h:.5f}:iw*{x:.5f}:ih*{y:.5f},split[e1][e2];"
+            f"[e1]scale={ziel_b}:{ziel_h}:force_original_aspect_ratio=increase,"
+            f"crop={ziel_b}:{ziel_h},boxblur=24:2,eq=brightness=-0.12[e3];"
+            f"[e2]scale={ziel_b}:{ziel_h}:force_original_aspect_ratio=decrease,"
+            f"scale=trunc(iw/2)*2:trunc(ih/2)*2[e4];"
+            f"[e3][e4]overlay=(W-w)/2:(H-h)/2")
+
+
 def untertitel_filter(srt, balken_unten):
     """Untertitel einbrennen - möglichst mittig im schwarzen Balken unten."""
     zeilenhoehe = 67                      # gemessen bei Fontsize 16
@@ -1617,15 +1631,20 @@ def baue_filter(einst, srt=None, quelle=None):
     face = einst.get("facecam") or None
     balken_unten = 0
 
-    if face:
+    if einst.get("ganz"):
+        # ganzes Bild (bzw. Bereich) zeigen, Rest unscharf gefüllt
+        kette = bild_einpassen(einst["ganz"], W, H)
+    elif face:
         anteil = max(0.15, min(0.5, float(face.get("anteil", 0.3))))
         h_oben = gerade(H * anteil)
         h_unten = H - h_oben
         kette = (
             "split[q1][q2];"
-            f"[q1]{bild_bereich(face.get('face', {}), W, h_oben)}[oben];"
-            f"[q2]{bild_bereich(face.get('haupt', {}), W, h_unten)}[unten];"
-            "[oben][unten]vstack=inputs=2"
+            + f"[q1]{bild_bereich(face.get('face', {}), W, h_oben)}[oben];"
+            + (f"[q2]{bild_einpassen(face.get('haupt', {}), W, h_unten)}[unten];"
+               if face.get("einpassen") else
+               f"[q2]{bild_bereich(face.get('haupt', {}), W, h_unten)}[unten];")
+            + "[oben][unten]vstack=inputs=2"
         )
     else:
         zoom = max(0.25, min(3.0, float(einst.get("zoom", 1.0))))
