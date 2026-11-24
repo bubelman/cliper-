@@ -147,7 +147,7 @@ def analysiere_bild(wc, video, proben=14):
 
 def bearbeite_clips(wc, irl=False):
     """Facecam oben + Spiel unten, sonst Ausschnitt aufs Gesicht. Dazu Untertitel."""
-    wc.UNTERTITEL_SPRACHE = ""          # Sprache automatisch erkennen
+    wc.UNTERTITEL_SPRACHE = "en"        # nur englischsprachige Streamer (Levin, 24.11.)
     for clip in list(wc.STATE.get("clips", [])):
         nr = clip["nummer"]
         master = wc.master_pfad(nr)
@@ -333,7 +333,7 @@ def main():
     wc.VORLAUF = VORLAUF_SEKUNDEN
     wc.MAX_LAENGE = MAX_MINUTEN * 60
     wc.IGNORIERE_START = 600        # Startbildschirm/Intro der Streams (erste 10 Min.) überspringen
-    wc.UNTERTITEL_SPRACHE = ""      # Sprache selbst erkennen (sonst wird Englisch als Deutsch abgetippt)
+    wc.UNTERTITEL_SPRACHE = "en"    # nur englischsprachige Streamer (Levin, 24.11.)
     wc.ARBEITSORDNER.mkdir(exist_ok=True)
     wc.AUSGABEORDNER.mkdir(exist_ok=True)
     wc.waehle_encoder()
