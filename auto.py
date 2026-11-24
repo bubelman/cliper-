@@ -196,6 +196,8 @@ def bearbeite_clips(wc, irl=False):
 # 24.11.2026: TikTok-Zuschauerbindung (11 Clips): nach 1 s nur noch 60 %, nach 3 s 26 %.
 # Deshalb kein langer Vorlauf mehr - der Höhepunkt kommt sofort.
 VARIANTEN = [(10, 0), (15, 0), (8, 0), (12, 0), (15, 1), (20, 0)]   # Levin 24.11.: kürzer
+LANG_PUNKTE = 85    # ab so vielen Punkten darf ein Clip länger laufen, wenn es weitergeht
+LANG_MAX = 40       # höchstens so lang (Sekunden)
 
 
 def stille_stellen(datei):
@@ -219,7 +221,7 @@ def stille_stellen(datei):
     return pausen
 
 
-def schnittpunkte(c, datei, laenge, vor, gesamt):
+def schnittpunkte(c, datei, laenge, vor, gesamt, lang_ok=False):
     """Start und Ende so legen, dass nie mitten im Wort oder Satz geschnitten wird.
 
     Start: Satzanfang (oder Sprechpause) kurz vor "Höhepunkt minus Vorlauf".
@@ -261,6 +263,19 @@ def schnittpunkte(c, datei, laenge, vor, gesamt):
         laufend = [e for s, e, w in woerter if s < ziel < e]
         ende = (laufend[0] + 0.25) if laufend else ziel
     ende = min(ende, gesamt)
+
+    # Sehr guter Clip, bei dem es am Ende noch weitergeht (Levin, 24.11.: „außer es ist
+    # ein guter Clip, wenn er länger geht“): bis zur nächsten echten Pause verlängern,
+    # höchstens LANG_MAX Sekunden.
+    if lang_ok:
+        grenze = min(gesamt, start + LANG_MAX)
+        lange_pausen = [a for a, b in pausen if b - a >= 0.7 and a > ende - 0.5]
+        if not lange_pausen or lange_pausen[0] > ende + 1.0:
+            neu = (lange_pausen[0] + 0.25) if lange_pausen else grenze
+            neu = min(neu, grenze)
+            if neu > ende + 3:
+                laufend = [e for s, e, w in woerter if s < neu < e]
+                ende = min(grenze, laufend[0] + 0.25) if laufend else neu
     return round(start, 2), round(ende, 2)
 
 
@@ -274,7 +289,8 @@ def teste_varianten(wc):
             gesamt = float(wc.dauer_von(quelle)) or CLIP_SEKUNDEN
         except Exception:
             gesamt = CLIP_SEKUNDEN
-        start, ende = schnittpunkte(c, quelle, laenge, vor, gesamt)
+        start, ende = schnittpunkte(c, quelle, laenge, vor, gesamt,
+                                    lang_ok=c.get("punkte", 0) >= LANG_PUNKTE)
         # Sprechpausen über 0,5 s herausschneiden (Jump-Cuts) - Leerlauf kostet Zuschauer
         teile, pos = [], start
         for a, b in stille_stellen(quelle):
@@ -307,6 +323,8 @@ def teste_varianten(wc):
             c["datei"] = ziel.name
             c["dauer"] = round(dauer, 1)
             c["variante"] = f"{laenge}s, {vor}s vor Höhepunkt"
+            if ende - start > laenge + 3:
+                c["verlaengert"] = True     # guter Clip, läuft länger als die Variante
             c["schnitt"] = f"{start:.1f}-{ende:.1f}, {len(teile) - 1} Pausen raus"
             log(f"  {ziel.name}: Variante {c['variante']}, Schnitt {start:.1f}-{ende:.1f} s, "
                 f"{len(teile) - 1} Pausen raus, {dauer:.1f} s")

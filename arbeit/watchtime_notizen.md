@@ -12,3 +12,4 @@
 
 - 24.11.2026: Zuschauerbindung von 11 Clips: nach 1 s noch 60 %, nach 2 s 37 %, nach 3 s 26 %. Deshalb Varianten ohne 4-s-Vorlauf (15s/0s, 20s/0s, 10s/0s, 15s/1s, 20s/1s, 30s/0s), Start direkt am Höhepunkt, Sprechpausen über 0,5 s werden rausgeschnitten.
 - 24.11.2026 (Levin: „mach auch kürzere Videos“): Varianten jetzt 8s/0s, 10s/0s, 12s/0s, 15s/0s, 15s/1s, 20s/0s.
+- 24.11.2026 (Levin: „außer es ist ein guter Clip, wenn er länger geht“): Clips ab 85 Punkten dürfen bis 40 s laufen, wenn am Ende noch weitergeredet wird (Feld „verlaengert“ in stand.json).
