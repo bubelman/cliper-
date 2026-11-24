@@ -11,3 +11,4 @@
 - 24.11.2026: Levin hat die Jynxzi-Test-Clips Regierung, Wortspiel, Panik, Turm und „22.11. Jynxzi 14“ auf TikTok gelöscht (alle 0 Views). Sie zählen nicht für den Test. Ab jetzt schneidet auto.py auf Satzanfang/Satzende, Posting-Zeiten wechseln täglich.
 
 - 24.11.2026: Zuschauerbindung von 11 Clips: nach 1 s noch 60 %, nach 2 s 37 %, nach 3 s 26 %. Deshalb Varianten ohne 4-s-Vorlauf (15s/0s, 20s/0s, 10s/0s, 15s/1s, 20s/1s, 30s/0s), Start direkt am Höhepunkt, Sprechpausen über 0,5 s werden rausgeschnitten.
+- 24.11.2026 (Levin: „mach auch kürzere Videos“): Varianten jetzt 8s/0s, 10s/0s, 12s/0s, 15s/0s, 15s/1s, 20s/0s.

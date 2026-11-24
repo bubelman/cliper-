@@ -195,7 +195,7 @@ def bearbeite_clips(wc, irl=False):
 # fertigen 30-s-Clip, dessen Höhepunkt bei VORLAUF_SEKUNDEN liegt.
 # 24.11.2026: TikTok-Zuschauerbindung (11 Clips): nach 1 s nur noch 60 %, nach 3 s 26 %.
 # Deshalb kein langer Vorlauf mehr - der Höhepunkt kommt sofort.
-VARIANTEN = [(15, 0), (20, 0), (10, 0), (15, 1), (20, 1), (30, 0)]
+VARIANTEN = [(10, 0), (15, 0), (8, 0), (12, 0), (15, 1), (20, 0)]   # Levin 24.11.: kürzer
 
 
 def stille_stellen(datei):
