@@ -33,7 +33,7 @@ def typ(name):
 def schema_zeigen():
     for n in ["Query", "CreatePostInput", "PostInputMetaData", "YoutubePostMetadataInput",
               "TikTokPostMetadataInput", "TiktokPostMetadataInput", "AssetsInput", "VideoAssetInput",
-              "SchedulingType", "ShareMode", "ChannelsInput"]:
+              "SchedulingType", "ShareMode", "ChannelsInput", "YoutubePrivacy", "PostType", "YoutubeLicense"]:
         t = typ(n)
         if t:
             print(f"--- {n}:", json.dumps(t, ensure_ascii=False)[:2500])
@@ -74,12 +74,12 @@ def main():
             p["status"], p["fehler"] = "fehler", f"kein {p['network']}-Kanal in Buffer verbunden"
             continue
         eingabe = {"text": p.get("text", ""), "channelId": cid, "schedulingType": "automatic",
-                   "mode": "customScheduled", "dueAt": p["due"],
+                   "mode": "customScheduled", "dueAt": p["due"], "needsApproval": False,
                    "assets": [{"video": {"url": p["url"]}}]}
         if p["network"] == "youtube":
             eingabe["metadata"] = {"youtube": {"title": p.get("title") or p.get("text", "")[:100],
                                                "privacy": "public", "madeForKids": False,
-                                               "categoryId": "24"}}
+                                               "categoryId": "24", "type": "short"}}
         if p["network"] == "tiktok" and p.get("title"):
             eingabe["metadata"] = {"tiktok": {"title": p["title"]}}
         r = gql(m, {"in": eingabe})
