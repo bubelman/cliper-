@@ -271,3 +271,41 @@
 2026-11-25 15:23  Fertig. Claude plant die Clips um 19:54 Uhr ein.
 2026-11-25 19:04  Sonderauftrag: {'kanal': 'stableronaldo', 'vorschau': True, 'grund': 'Levin 25.11.: Probe-Clips mit größerer Facecam'}
 2026-11-25 19:04  Kein Video hat geklappt – heute keine neuen Clips.
+2026-11-25 20:21  Sonderauftrag: {'kanal': 'stableronaldo', 'vorschau': True, 'erneut': True, 'grund': 'Levin 25.11.: Probe-Clips mit größerer Facecam'}
+2026-11-25 20:21  Neues Video: https://www.twitch.tv/videos/2939690712
+2026-11-25 21:06  Bearbeite Clips (Facecam, Untertitel) ...
+2026-11-25 21:06    Clip 1: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-25 21:06    Clip 2: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:07    Clip 3: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:07    Clip 4: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:08    Clip 5: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:08    Clip 6: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:08    Clip 7: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:09    Clip 8: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:09    Clip 9: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:10    Clip 10: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:10    Clip 11: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:11    Clip 12: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:11    Clip 13: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:11    Clip 14: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:12    Clip 15: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:12    Clip 16: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:13    Clip 17: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:13    Clip 18: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 21:14    Clip 19: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-25 21:14    Clip 20: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-25 21:15    1 Clip(s) mit heiklem Inhalt aussortiert
+2026-11-25 21:15    2026-11-25_stableronaldo_15_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 8.3-18.3 s, 1 Pausen raus, 9.6 s
+2026-11-25 21:16    2026-11-25_stableronaldo_13_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 2.9-23.9 s, 4 Pausen raus, 18.5 s
+2026-11-25 21:16    2026-11-25_stableronaldo_19_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 2.0-11.1 s, 2 Pausen raus, 7.6 s
+2026-11-25 21:17    2026-11-25_stableronaldo_20_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 2.0-14.8 s, 3 Pausen raus, 10.6 s
+2026-11-25 21:17    2026-11-25_stableronaldo_16_15s1.mp4: Variante 15s, 1s vor Höhepunkt, Schnitt 1.8-17.0 s, 4 Pausen raus, 4.7 s
+2026-11-25 21:17    2026-11-25_stableronaldo_08_20s0.mp4: Variante 20s, 0s vor Höhepunkt, Schnitt 7.9-28.2 s, 4 Pausen raus, 15.0 s
+2026-11-25 21:18    2026-11-25_stableronaldo_18_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 1.9-11.3 s, 0 Pausen raus, 9.4 s
+2026-11-25 21:18    2026-11-25_stableronaldo_14_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 1.8-17.4 s, 4 Pausen raus, 11.6 s
+2026-11-25 21:18    2026-11-25_stableronaldo_09_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 7.9-17.0 s, 0 Pausen raus, 9.0 s
+2026-11-25 21:19    2026-11-25_stableronaldo_17_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 3.4-15.3 s, 2 Pausen raus, 10.9 s
+2026-11-25 21:19  Beste Clips: 2026-11-25_stableronaldo_15_10s0.mp4 (100 P.), 2026-11-25_stableronaldo_13_15s0.mp4 (87 P.), 2026-11-25_stableronaldo_19_8s0.mp4 (84 P.), 2026-11-25_stableronaldo_20_12s0.mp4 (84 P.), 2026-11-25_stableronaldo_16_15s1.mp4 (82 P.), 2026-11-25_stableronaldo_08_20s0.mp4 (81 P.), 2026-11-25_stableronaldo_18_10s0.mp4 (81 P.), 2026-11-25_stableronaldo_14_15s0.mp4 (76 P.), 2026-11-25_stableronaldo_09_8s0.mp4 (72 P.), 2026-11-25_stableronaldo_17_12s0.mp4 (72 P.)
+2026-11-25 21:19  10 Clips fertig. Lade für TikTok hoch ...
+2026-11-25 21:19  Vorschau: 9 Clips in clips/vorschau.json (nicht im Puffer).
+2026-11-25 21:19  Fertig. Claude plant die Clips am Abend ein.
