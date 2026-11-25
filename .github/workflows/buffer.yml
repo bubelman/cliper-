@@ -27,5 +27,5 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add clips/buffer_plan.json clips/gepostet.json || true
+          git add clips/buffer_plan.json clips/gepostet.json clips/youtube_gepostet.json || true
           git diff --cached --quiet || (git commit -m "Buffer: Status aktualisiert [skip ci]" && git pull --rebase && git push)

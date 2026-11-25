@@ -11,7 +11,9 @@ from pathlib import Path
 
 PLAN = Path(__file__).parent / "clips" / "buffer_plan.json"
 GEPOSTET = Path(__file__).parent / "clips" / "gepostet.json"
-TIKTOK_PRO_TAG = 3   # Levin 25.11.2026: „mach mal auf 3 pro Tag runter“
+YT_GEPOSTET = Path(__file__).parent / "clips" / "youtube_gepostet.json"
+PRO_TAG = {"tiktok": 3,    # Levin 25.11.2026: „mach mal auf 3 pro Tag runter“
+           "youtube": 1}   # Levin 25.11.2026: „mach yt nur ein“
 KEY = os.environ.get("BUFFER_API_KEY", "").strip()
 API = "https://api.buffer.com"
 
@@ -60,6 +62,7 @@ def main():
         schema_zeigen()
     plan = json.loads(PLAN.read_text(encoding="utf-8")) if PLAN.exists() else []
     gepostet = json.loads(GEPOSTET.read_text(encoding="utf-8")) if GEPOSTET.exists() else {}
+    yt_gepostet = json.loads(YT_GEPOSTET.read_text(encoding="utf-8")) if YT_GEPOSTET.exists() else {}
 
     # Einträge mit status "loeschen": geplanten Post bei Buffer wieder entfernen,
     # Clip kommt zurück in den Puffer (aus gepostet.json raus).
@@ -83,26 +86,26 @@ def main():
                 print("Lösch-Mutationen:", [ (f["name"], f["args"]) for f in mu.get("fields") or [] if "delete" in f["name"].lower()])
                 print("DeletePostInput:", typ("DeletePostInput"))
                 continue
-        if p["network"] == "tiktok":
-            gepostet.pop(p["url"], None)
+        (gepostet if p["network"] == "tiktok" else yt_gepostet).pop(p["url"], None)
 
-    # Höchstens TIKTOK_PRO_TAG TikToks pro Tag: Überzählige bleiben im Puffer.
+    # Höchstens PRO_TAG Posts pro Netzwerk und Tag: Überzählige bleiben im Puffer.
     tage = {}
     for p in plan:
-        if p["network"] == "tiktok" and p.get("status") == "geplant":
-            tage[p["due"][:10]] = tage.get(p["due"][:10], 0) + 1
+        if p.get("status") == "geplant":
+            k = (p["network"], p["due"][:10])
+            tage[k] = tage.get(k, 0) + 1
     for p in sorted([p for p in plan if p.get("status", "offen") == "offen"], key=lambda p: p["due"]):
-        if p["network"] != "tiktok":
-            continue
-        tag = p["due"][:10]
-        if tage.get(tag, 0) >= TIKTOK_PRO_TAG:
+        k = (p["network"], p["due"][:10])
+        grenze = PRO_TAG.get(p["network"], 99)
+        if tage.get(k, 0) >= grenze:
             p["status"] = "zurueck"
-            p["fehler"] = f"schon {TIKTOK_PRO_TAG} TikToks an diesem Tag - Clip bleibt im Puffer"
-            gepostet.pop(p["url"], None)
+            p["fehler"] = f"schon {grenze} {p['network']}-Posts an diesem Tag - Clip bleibt im Puffer"
+            (gepostet if p["network"] == "tiktok" else yt_gepostet).pop(p["url"], None)
             print("zurück in den Puffer:", p["id"], p["due"])
         else:
-            tage[tag] = tage.get(tag, 0) + 1
+            tage[k] = tage.get(k, 0) + 1
     GEPOSTET.write_text(json.dumps(gepostet, ensure_ascii=False, indent=1), encoding="utf-8")
+    YT_GEPOSTET.write_text(json.dumps(yt_gepostet, ensure_ascii=False, indent=1), encoding="utf-8")
     PLAN.write_text(json.dumps(plan, ensure_ascii=False, indent=1), encoding="utf-8")
 
     offen = [p for p in plan if p.get("status", "offen") == "offen"]
