@@ -10,6 +10,8 @@ import json, os, sys, urllib.request
 from pathlib import Path
 
 PLAN = Path(__file__).parent / "clips" / "buffer_plan.json"
+GEPOSTET = Path(__file__).parent / "clips" / "gepostet.json"
+TIKTOK_PRO_TAG = 3   # Levin 25.11.2026: „mach mal auf 3 pro Tag runter“
 KEY = os.environ.get("BUFFER_API_KEY", "").strip()
 API = "https://api.buffer.com"
 
@@ -31,7 +33,7 @@ def typ(name):
 
 
 def schema_zeigen():
-    for n in ["Query", "CreatePostInput", "PostInputMetaData", "YoutubePostMetadataInput",
+    for n in ["Query", "Mutation", "DeletePostInput", "CreatePostInput", "PostInputMetaData", "YoutubePostMetadataInput",
               "TikTokPostMetadataInput", "TiktokPostMetadataInput", "AssetsInput", "VideoAssetInput",
               "SchedulingType", "ShareMode", "ChannelsInput", "YoutubePrivacy", "PostType", "YoutubeLicense"]:
         t = typ(n)
@@ -57,6 +59,52 @@ def main():
     if "--schema" in sys.argv:
         schema_zeigen()
     plan = json.loads(PLAN.read_text(encoding="utf-8")) if PLAN.exists() else []
+    gepostet = json.loads(GEPOSTET.read_text(encoding="utf-8")) if GEPOSTET.exists() else {}
+
+    # Einträge mit status "loeschen": geplanten Post bei Buffer wieder entfernen,
+    # Clip kommt zurück in den Puffer (aus gepostet.json raus).
+    for p in plan:
+        if p.get("status") != "loeschen":
+            continue
+        if not p.get("buffer_id"):
+            p["status"] = "geloescht"
+        else:
+            r = gql("""mutation($in: DeletePostInput!){ deletePost(input:$in){ __typename
+                         ... on MutationError { message } } }""", {"in": {"id": p["buffer_id"]}})
+            erg = (r.get("data") or {}).get("deletePost")
+            if erg and not erg.get("message"):
+                p["status"] = "geloescht"
+                print("gelöscht:", p["id"], p["due"])
+            else:
+                p["status"] = "fehler"
+                p["fehler"] = ("Löschen: " + ((erg or {}).get("message") or json.dumps(r.get("errors"), ensure_ascii=False)))[:400]
+                print("FEHLER beim Löschen:", p["id"], p["fehler"])
+                mu = typ("Mutation") or {}
+                print("Lösch-Mutationen:", [ (f["name"], f["args"]) for f in mu.get("fields") or [] if "delete" in f["name"].lower()])
+                print("DeletePostInput:", typ("DeletePostInput"))
+                continue
+        if p["network"] == "tiktok":
+            gepostet.pop(p["url"], None)
+
+    # Höchstens TIKTOK_PRO_TAG TikToks pro Tag: Überzählige bleiben im Puffer.
+    tage = {}
+    for p in plan:
+        if p["network"] == "tiktok" and p.get("status") == "geplant":
+            tage[p["due"][:10]] = tage.get(p["due"][:10], 0) + 1
+    for p in sorted([p for p in plan if p.get("status", "offen") == "offen"], key=lambda p: p["due"]):
+        if p["network"] != "tiktok":
+            continue
+        tag = p["due"][:10]
+        if tage.get(tag, 0) >= TIKTOK_PRO_TAG:
+            p["status"] = "zurueck"
+            p["fehler"] = f"schon {TIKTOK_PRO_TAG} TikToks an diesem Tag - Clip bleibt im Puffer"
+            gepostet.pop(p["url"], None)
+            print("zurück in den Puffer:", p["id"], p["due"])
+        else:
+            tage[tag] = tage.get(tag, 0) + 1
+    GEPOSTET.write_text(json.dumps(gepostet, ensure_ascii=False, indent=1), encoding="utf-8")
+    PLAN.write_text(json.dumps(plan, ensure_ascii=False, indent=1), encoding="utf-8")
+
     offen = [p for p in plan if p.get("status", "offen") == "offen"]
     ch = kanaele()
     if not offen:
