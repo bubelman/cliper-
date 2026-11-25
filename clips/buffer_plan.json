@@ -106,7 +106,8 @@
   "title": "ohnePixel trainiert mit Lucia in GTA 6: Wir machen keine Pausen",
   "network": "tiktok",
   "due": "2026-11-25T20:51:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b0728da827512a7c4ca10c1"
  },
  {
   "id": "2026-11-24_stableronaldo_08_15s0",
@@ -115,7 +116,8 @@
   "title": "StableRonaldo in GTA 6: Warum sehe ich damit dick aus?",
   "network": "tiktok",
   "due": "2026-11-26T11:37:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b0728dbacb19363a0d4f507"
  },
  {
   "id": "2026-11-24_ohnepixel_14_12s0",
@@ -124,7 +126,8 @@
   "title": "ohnePixel in GTA 6: Andy ist weg – und jemand Neues ruft an",
   "network": "tiktok",
   "due": "2026-11-26T16:03:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b0728dc5e4da1697fd9da00"
  },
  {
   "id": "2026-11-25_ohnepixel_15_10s0",
@@ -133,7 +136,8 @@
   "title": "ohnePixel in GTA 6: Nur 3K eingezahlt – 100K ist das Limit",
   "network": "tiktok",
   "due": "2026-11-26T21:19:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b0728dcacb19363a0d4f54c"
  },
  {
   "id": "2026-11-24_stableronaldo_15_20s0_yt",
@@ -142,7 +146,8 @@
   "title": "StableRonaldo in GTA 6: Ich hab die falsche Person erschossen",
   "network": "youtube",
   "due": "2026-11-25T20:22:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b0728dd827512a7c4ca1167"
  },
  {
   "id": "2026-11-24_stableronaldo_11_15s1_yt",
@@ -151,6 +156,7 @@
   "title": "StableRonaldo in GTA 6: Das tote Tier auf der Straße ist plötzlich weg",
   "network": "youtube",
   "due": "2026-11-26T12:44:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b0728de827512a7c4ca11cd"
  }
 ]
