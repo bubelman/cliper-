@@ -294,6 +294,52 @@ def schnittpunkte(c, datei, laenge, vor, gesamt, lang_ok=False):
     return round(start, 2), round(ende, 2)
 
 
+def lautstaerke(datei):
+    """Lautstärke (RMS in dB) alle 0,1 s: [(zeit, db), ...]."""
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(datei), "-af",
+                        "aresample=44100,asetnsamples=4410,astats=metadata=1:reset=1,"
+                        "ametadata=print:key=lavfi.astats.Overall.RMS_level", "-f", "null", "-"],
+                       capture_output=True, text=True)
+    werte, t = [], None
+    for zeile in r.stderr.splitlines():
+        if "pts_time:" in zeile:
+            try:
+                t = float(zeile.split("pts_time:")[1].split()[0])
+            except ValueError:
+                t = None
+        elif "RMS_level=" in zeile and t is not None:
+            try:
+                db = float(zeile.split("RMS_level=")[1])
+            except ValueError:
+                db = -90.0
+            werte.append((t, max(db, -90.0)))
+    return werte
+
+
+def knall_start(c, datei, start, ende):
+    """25.11. (Levin: „ganz dolle die Watchtime verbessern“): Die erste Sekunde entscheidet
+    (nach 1 s sind 40 % weg). Ist die erste Sekunde leiser als der Rest des Clips und kommt
+    kurz danach ein lauter Moment (Schrei, Lachen, Knall), startet der Clip dort."""
+    werte = lautstaerke(datei)
+    drin = [db for t, db in werte if start <= t < ende]
+    if len(drin) < 30:
+        return start
+    mitte = sorted(drin)[len(drin) // 2]
+    erste = [db for t, db in werte if start <= t < start + 1.0]
+    if not erste or sum(erste) / len(erste) >= mitte:
+        return start                      # Anfang ist schon laut genug
+    laut = [t for t, db in werte if start + 0.3 < t <= start + 2.5 and db >= mitte + 4]
+    if not laut or ende - laut[0] < 6:
+        return start
+    neu = laut[0] - 0.2
+    woerter = [w for w in (c.get("woerter") or []) if len(w) == 3]
+    for s_, e_, w in woerter:             # nie mitten im Wort anfangen
+        if s_ <= neu < e_:
+            neu = s_ - 0.05
+            break
+    return round(neu, 2) if neu - start >= 0.4 else start
+
+
 HEIKEL = ("nigga", "nigger", "faggot", "retard", "pussy", "dick", "cock", "porn", "onlyfans",
           "only fans", "blowjob", "titties", "boobs", "horny", "kill yourself", "kys", "rape",
           "naked", "nudes", "cum ")
@@ -317,6 +363,13 @@ def teste_varianten(wc):
             gesamt = CLIP_SEKUNDEN
         start, ende = schnittpunkte(c, quelle, laenge, vor, gesamt,
                                     lang_ok=c.get("punkte", 0) >= LANG_PUNKTE)
+        try:
+            neu = knall_start(c, quelle, start, ende)
+            if neu > start:
+                log(f"  {c['datei']}: leiser Anfang -> startet {neu - start:.1f} s später beim lauten Moment")
+                start = neu
+        except Exception as fehler:
+            log(f"  Lautstärke-Prüfung übersprungen ({fehler})")
         # Sprechpausen über 0,5 s herausschneiden (Jump-Cuts) - Leerlauf kostet Zuschauer
         teile, pos = [], start
         for a, b in stille_stellen(quelle):
