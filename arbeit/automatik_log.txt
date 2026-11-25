@@ -234,3 +234,38 @@
 2026-11-25 00:31  Beste Clips: 2026-11-25_ohnepixel_03_10s0.mp4 (100 P.), 2026-11-25_ohnepixel_10_15s0.mp4 (99 P.), 2026-11-25_ohnepixel_12_8s0.mp4 (95 P.), 2026-11-25_ohnepixel_14_12s0.mp4 (90 P.), 2026-11-25_ohnepixel_19_15s1.mp4 (77 P.), 2026-11-25_ohnepixel_13_20s0.mp4 (70 P.), 2026-11-25_ohnepixel_15_10s0.mp4 (68 P.), 2026-11-25_ohnepixel_04_15s0.mp4 (67 P.), 2026-11-25_ohnepixel_18_8s0.mp4 (67 P.), 2026-11-25_ohnepixel_08_12s0.mp4 (66 P.)
 2026-11-25 00:31  10 Clips fertig. Lade für TikTok hoch ...
 2026-11-25 00:31  Fertig. Claude plant die Clips um 19:54 Uhr ein.
+2026-11-25 14:17  Neues Video: https://www.twitch.tv/videos/2939690712
+2026-11-25 15:10  Bearbeite Clips (Facecam, Untertitel) ...
+2026-11-25 15:11    Clip 1: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:11    Clip 2: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:12    Clip 3: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:12    Clip 4: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:12    Clip 5: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:13    Clip 6: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:13    Clip 7: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:14    Clip 8: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:14    Clip 9: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:15    Clip 10: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:15    Clip 11: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:16    Clip 12: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:16    Clip 13: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:17    Clip 14: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:17    Clip 15: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:18    Clip 16: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:18    Clip 17: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:19    Clip 18: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:19    Clip 19: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-25 15:20    Clip 20: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-25 15:21    2026-11-25_stableronaldo_18_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 3.9-18.2 s, 0 Pausen raus, 14.4 s
+2026-11-25 15:21    2026-11-25_stableronaldo_09_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 7.8-23.3 s, 2 Pausen raus, 14.1 s
+2026-11-25 15:21    2026-11-25_stableronaldo_20_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 1.9-10.2 s, 2 Pausen raus, 6.2 s
+2026-11-25 15:22    2026-11-25_stableronaldo_10_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 7.8-19.0 s, 1 Pausen raus, 10.2 s
+2026-11-25 15:22    2026-11-25_stableronaldo_04_15s1.mp4: Variante 15s, 1s vor Höhepunkt, Schnitt 3.1-18.5 s, 0 Pausen raus, 15.4 s
+2026-11-25 15:22    2026-11-25_stableronaldo_01_20s0.mp4: Variante 20s, 0s vor Höhepunkt, Schnitt 1.6-21.8 s, 1 Pausen raus, 19.6 s
+2026-11-25 15:23    2026-11-25_stableronaldo_02_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 2.1-12.3 s, 1 Pausen raus, 9.5 s
+2026-11-25 15:23    2026-11-25_stableronaldo_05_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 7.9-23.7 s, 0 Pausen raus, 15.8 s
+2026-11-25 15:23    2026-11-25_stableronaldo_08_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 3.9-12.5 s, 0 Pausen raus, 8.7 s
+2026-11-25 15:23    2026-11-25_stableronaldo_07_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 3.0-16.5 s, 2 Pausen raus, 10.0 s
+2026-11-25 15:23  Beste Clips: 2026-11-25_stableronaldo_18_10s0.mp4 (100 P.), 2026-11-25_stableronaldo_09_15s0.mp4 (86 P.), 2026-11-25_stableronaldo_20_8s0.mp4 (81 P.), 2026-11-25_stableronaldo_10_12s0.mp4 (76 P.), 2026-11-25_stableronaldo_04_15s1.mp4 (69 P.), 2026-11-25_stableronaldo_01_20s0.mp4 (66 P.), 2026-11-25_stableronaldo_02_10s0.mp4 (64 P.), 2026-11-25_stableronaldo_05_15s0.mp4 (62 P.), 2026-11-25_stableronaldo_08_8s0.mp4 (59 P.), 2026-11-25_stableronaldo_07_12s0.mp4 (57 P.)
+2026-11-25 15:23  10 Clips fertig. Lade für TikTok hoch ...
+2026-11-25 15:23  Fertig. Claude plant die Clips um 19:54 Uhr ein.
