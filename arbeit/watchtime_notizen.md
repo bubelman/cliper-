@@ -16,3 +16,4 @@
 
 - 24.11.2026, 19:40 (Routine): Zu wenig Daten, nichts an VARIANTEN geändert. Mind. 24 h online mit Views: 30s/4s (6 Clips: Ø 2,91 s = 9,7 % der Länge, Komplett 1,38 %, Ø 238 Views) und 40s/12s (5 Clips: Ø 3,60 s = 9,0 %, Komplett 0,66 %, Ø 230 Views). Alle anderen Varianten: noch kein Clip 24 h online mit Views (24.11. stableronaldo 12, 15s/0s, seit 17:58 online, bisher 0 Views). „22.11. GTA 6 18“ (23.11.) fehlt in Windsor – vermutlich gelöscht. Eingeplant: 15s/0s, 20s/0s, 15s/1s, 20s/1s, 30s/4s (je 1).
 - 25.11.2026: Seit 22.11. 20:31 haben alle neuen TikToks 0 Views (vermutlich Shadowban). Bis einschließlich 28.11. höchstens 1 TikTok-Post pro Tag als Test; YouTube läuft normal weiter.
+- 25.11.2026: Verlängerung guter Clips nur noch bis zur nächsten Pause, höchstens +8 s (vorher wurden Dialog-Clips auf 40 s gezogen). Clips mit sexuellen Inhalten/Beleidigungen werden aussortiert (TikTok-Risiko). Chat-Reaktion zählt stärker (0,65).

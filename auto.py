@@ -197,7 +197,8 @@ def bearbeite_clips(wc, irl=False):
 # Deshalb kein langer Vorlauf mehr - der Höhepunkt kommt sofort.
 VARIANTEN = [(10, 0), (15, 0), (8, 0), (12, 0), (15, 1), (20, 0)]   # Levin 24.11.: kürzer
 LANG_PUNKTE = 85    # ab so vielen Punkten darf ein Clip länger laufen, wenn es weitergeht
-LANG_MAX = 40       # höchstens so lang (Sekunden)
+LANG_MAX = 30       # höchstens so lang (Sekunden)
+LANG_PLUS = 8       # und höchstens so viel länger als die Variante
 
 
 def stille_stellen(datei):
@@ -268,15 +269,25 @@ def schnittpunkte(c, datei, laenge, vor, gesamt, lang_ok=False):
     # ein guter Clip, wenn er länger geht“): bis zur nächsten echten Pause verlängern,
     # höchstens LANG_MAX Sekunden.
     if lang_ok:
-        grenze = min(gesamt, start + LANG_MAX)
+        grenze = min(gesamt, start + LANG_MAX, ende + LANG_PLUS)
         lange_pausen = [a for a, b in pausen if b - a >= 0.7 and a > ende - 0.5]
-        if not lange_pausen or lange_pausen[0] > ende + 1.0:
-            neu = (lange_pausen[0] + 0.25) if lange_pausen else grenze
-            neu = min(neu, grenze)
+        if lange_pausen and ende + 1.0 < lange_pausen[0] <= grenze:
+            neu = lange_pausen[0] + 0.25
             if neu > ende + 3:
                 laufend = [e for s, e, w in woerter if s < neu < e]
                 ende = min(grenze, laufend[0] + 0.25) if laufend else neu
     return round(start, 2), round(ende, 2)
+
+
+HEIKEL = ("nigga", "nigger", "faggot", "retard", "pussy", "dick", "cock", "porn", "onlyfans",
+          "only fans", "blowjob", "titties", "boobs", "horny", "kill yourself", "kys", "rape",
+          "naked", "nudes", "cum ")
+
+
+def heikel(text):
+    """Grobe Prüfung auf Inhalte, für die TikTok Videos sperrt oder den Account bremst."""
+    t = " " + text.lower().replace("-", "").replace(" '", "'") + " "
+    return any(w in t for w in HEIKEL)
 
 
 def teste_varianten(wc):
@@ -397,13 +408,20 @@ def main():
     def wert(c):
         # kaum Gesprochenes (Musik, Startbildschirm, stilles Spielen) = schwacher Clip
         woerter = len((c.get("text") or "").split())
+        if heikel(c.get("text") or ""):
+            return -1          # sexuelle Inhalte/Beleidigungen: TikTok bestraft so etwas
         return c.get("punkte", 0) * (0.5 if woerter < 15 else 1.0)
     clips = sorted(wc.STATE["clips"], key=wert, reverse=True)
-    for c in clips[BEHALTEN:]:
+    weg = [c for c in clips if wert(c) < 0]
+    if weg:
+        log(f"  {len(weg)} Clip(s) mit heiklem Inhalt aussortiert")
+    clips = [c for c in clips if wert(c) >= 0] + weg      # heikle ans Ende -> werden gelöscht
+    behalten = min(BEHALTEN, len(clips) - len(weg))
+    for c in clips[behalten:]:
         datei = wc.AUSGABEORDNER / c.get("datei", "")
         if datei.is_file():
             datei.unlink()
-    wc.STATE["clips"] = clips[:BEHALTEN]
+    wc.STATE["clips"] = clips[:behalten]
 
     # Eindeutige Namen: Datum_Kanal_Nummer.mp4 (sonst gibt es jeden Tag wieder clip_01 ...)
     vorne = time.strftime("%Y-%m-%d") + "_" + "".join(z for z in kanal.lstrip("@") if z.isalnum())
