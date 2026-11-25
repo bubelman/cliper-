@@ -269,3 +269,5 @@
 2026-11-25 15:23  Beste Clips: 2026-11-25_stableronaldo_18_10s0.mp4 (100 P.), 2026-11-25_stableronaldo_09_15s0.mp4 (86 P.), 2026-11-25_stableronaldo_20_8s0.mp4 (81 P.), 2026-11-25_stableronaldo_10_12s0.mp4 (76 P.), 2026-11-25_stableronaldo_04_15s1.mp4 (69 P.), 2026-11-25_stableronaldo_01_20s0.mp4 (66 P.), 2026-11-25_stableronaldo_02_10s0.mp4 (64 P.), 2026-11-25_stableronaldo_05_15s0.mp4 (62 P.), 2026-11-25_stableronaldo_08_8s0.mp4 (59 P.), 2026-11-25_stableronaldo_07_12s0.mp4 (57 P.)
 2026-11-25 15:23  10 Clips fertig. Lade für TikTok hoch ...
 2026-11-25 15:23  Fertig. Claude plant die Clips um 19:54 Uhr ein.
+2026-11-25 19:04  Sonderauftrag: {'kanal': 'stableronaldo', 'vorschau': True, 'grund': 'Levin 25.11.: Probe-Clips mit größerer Facecam'}
+2026-11-25 19:04  Kein Video hat geklappt – heute keine neuen Clips.
