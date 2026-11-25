@@ -80,6 +80,18 @@ YUNET = HIER / "modelle" / "face_detection_yunet_2023mar.onnx"
 _YUNET = {}
 
 
+def hautanteil(cv2, bild, box):
+    """25.11.: Auf dem Schachbrett hielt die Erkennung Figuren für Gesichter (Riesen-Bauer
+    oben statt Facecam). Ein echtes Gesicht hat Hautfarbe, eine weiße Figur nicht."""
+    x, y, w, h = box
+    teil = bild[max(0, y):y + h, max(0, x):x + w]
+    if teil.size == 0:
+        return 0.0
+    ycc = cv2.cvtColor(teil, cv2.COLOR_BGR2YCrCb)
+    maske = cv2.inRange(ycc, (0, 133, 77), (255, 173, 127))
+    return float((maske > 0).mean())
+
+
 def finde_gesichter(cv2, modell, bild):
     """Gesichter als (x, y, w, h) in Pixeln. YuNet (genauer, auch mit Headset/seitlich),
     sonst die alte Haar-Erkennung."""
@@ -93,13 +105,16 @@ def finde_gesichter(cv2, modell, bild):
             _, treffer = d.detect(bild)
             if treffer is None:
                 return []
-            return [(int(t[0]), int(t[1]), int(t[2]), int(t[3])) for t in treffer if t[2] >= 20]
+            boxen = [(int(t[0]), int(t[1]), int(t[2]), int(t[3])) for t in treffer
+                     if t[2] >= 20 and float(t[-1]) >= 0.8]
+            return [b for b in boxen if hautanteil(cv2, bild, b) >= 0.25]
         except Exception as fehler:
             log(f"  YuNet nicht nutzbar ({fehler}) - nehme Haar")
     if modell is None:
         return []
     grau = cv2.cvtColor(bild, cv2.COLOR_BGR2GRAY)
-    return list(modell.detectMultiScale(grau, 1.1, 5, minSize=(28, 28)))
+    return [b for b in modell.detectMultiScale(grau, 1.1, 5, minSize=(28, 28))
+            if hautanteil(cv2, bild, tuple(int(v) for v in b)) >= 0.25]
 
 
 def analysiere_bild(wc, video, proben=14):
@@ -189,7 +204,9 @@ def bearbeite_clips(wc, irl=False):
                 einst["versatz_x"] = max(-1.0, min(1.0, 1 - cx / spiel))
             log(f"  Clip {nr}: Kamera-Stream -> Ausschnitt aufs Gesicht")
         else:
-            log(f"  Clip {nr}: kein Gesicht -> Bildmitte")
+            log(f"  Clip {nr}: kein Gesicht -> wird aussortiert")
+            clip["ohne_gesicht"] = True     # Levin: Facecam oben, Spiel unten bei allen Clips
+            continue
         try:
             wc.rendere_clip(nr, einst)
         except Exception as fehler:
@@ -491,6 +508,8 @@ def main():
         woerter = len((c.get("text") or "").split())
         if heikel(c.get("text") or ""):
             return -1          # sexuelle Inhalte/Beleidigungen: TikTok bestraft so etwas
+        if c.get("ohne_gesicht"):
+            return -1          # 25.11.: kein Gesicht gefunden - lieber weglassen als falsches Bild
         return c.get("punkte", 0) * (0.5 if woerter < 15 else 1.0)
     clips = sorted(wc.STATE["clips"], key=wert, reverse=True)
     weg = [c for c in clips if wert(c) < 0]
