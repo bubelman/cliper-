@@ -17,7 +17,9 @@ BEHALTEN = 10        # die besten 10 werden hochgeladen; Claude wählt daraus di
 UNTERTITEL = False   # Untertitel automatisch einbrennen (True = an)
 CLIP_SEKUNDEN = 60   # Länge des Grund-Clips (Varianten werden daraus geschnitten)
 VORLAUF_SEKUNDEN = 4 # so viele Sekunden vor dem Höhepunkt starten
-MAX_MINUTEN = 120    # nur die ersten X Minuten eines Streams nutzen
+MAX_MINUTEN = 120
+FACECAM_ANTEIL = 0.42  # Höhe der Facecam oben (Levin 25.11.: „immer eine relativ große Facecam“, vorher 0.3)
+FACECAM_ZOOM = 2.4     # Ausschnitt = so viel mal die Gesichtshöhe (kleiner = Gesicht größer, vorher 3.2)    # nur die ersten X Minuten eines Streams nutzen
 SPERRE = HIER / "arbeit" / "automatik_laeuft.txt"
 LOG = HIER / "arbeit" / "automatik_log.txt"
 # Einmaliger Sonderauftrag (z. B. Levin 25.11.: Jynxzi-Schach-Clips zur Vorschau).
@@ -179,16 +181,18 @@ def bearbeite_clips(wc, irl=False):
         qb, qh = wc.masse_von(master)
         if bild["facecam"] and not irl:
             mx, my, mw, mh = bild["facecam"]
-            # Bereich um das Gesicht, im Seitenverhältnis des oberen Streifens (1080x576)
-            h_px = min(qh, mh * qh * 3.2)
-            b_px = min(qb, h_px * 1080 / 576)
+            # Bereich um das Gesicht, im Seitenverhältnis des oberen Streifens
+            h_oben = 1920 * FACECAM_ANTEIL
+            h_px = min(qh, mh * qh * FACECAM_ZOOM)
+            b_px = min(qb, h_px * 1080 / h_oben)
+            h_px = b_px * h_oben / 1080
             b, h = b_px / qb, h_px / qh
             x = min(max(0.0, mx - b / 2), 1 - b)
             y = min(max(0.0, my - h / 2), 1 - h)
-            breite_spiel = (1344 / 1080) ** -1 * qh / qb   # Spiel: Mitte, volle Höhe
+            breite_spiel = 1080 / (1920 - h_oben) * qh / qb   # Spiel: Mitte, volle Höhe
             breite_spiel = min(1.0, breite_spiel)
             einst["facecam"] = {
-                "anteil": 0.3,
+                "anteil": FACECAM_ANTEIL,
                 "face": {"x": x, "y": y, "b": b, "h": h},
                 "haupt": {"x": (1 - breite_spiel) / 2, "y": 0, "b": breite_spiel, "h": 1},
             }
