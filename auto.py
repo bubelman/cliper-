@@ -20,6 +20,10 @@ VORLAUF_SEKUNDEN = 4 # so viele Sekunden vor dem Höhepunkt starten
 MAX_MINUTEN = 120    # nur die ersten X Minuten eines Streams nutzen
 SPERRE = HIER / "arbeit" / "automatik_laeuft.txt"
 LOG = HIER / "arbeit" / "automatik_log.txt"
+# Einmaliger Sonderauftrag (z. B. Levin 25.11.: Jynxzi-Schach-Clips zur Vorschau).
+# {"kanal": "jynxzi", "suche": "chess", "vorschau": true} - wird nach dem Lauf gelöscht.
+AUFTRAG = HIER / "arbeit" / "auftrag.json"
+VORSCHAU = HIER / "clips" / "vorschau.json"
 
 
 def log(text):
@@ -49,7 +53,7 @@ def videos_seite(kanal):
     return f"https://www.twitch.tv/{kanal}/videos?filter=archives&sort=time"
 
 
-def neueste_videos(kanal, wie_viele=3):
+def neueste_videos(kanal, wie_viele=3, suche=None):
     befehl = [sys.executable, "-m", "yt_dlp", "--flat-playlist", "-J",
               "--playlist-end", str(wie_viele), videos_seite(kanal)]
     ergebnis = subprocess.run(befehl, capture_output=True, text=True, encoding="utf-8",
@@ -65,6 +69,8 @@ def neueste_videos(kanal, wie_viele=3):
         url = e.get("url") or e.get("webpage_url")
         if url and not url.startswith("http"):
             url = f"https://www.youtube.com/watch?v={url}"
+        if suche and suche.lower() not in (e.get("title") or "").lower():
+            continue
         if url:
             urls.append(url)
     return urls
@@ -245,7 +251,8 @@ def schnittpunkte(c, datei, laenge, vor, gesamt, lang_ok=False):
     enden += [a for a, b in pausen]             # Anfang einer Pause = hier ist Schluss
 
     # Start: spätester Satzanfang knapp vor dem Wunschpunkt
-    passend = [t for t in anfaenge if wunsch - 0.8 <= t <= wunsch + 0.4]
+    # 25.11.: Fenster enger (vorher -0.8 s) - jede Zehntelsekunde Vorlauf kostet Zuschauer
+    passend = [t for t in anfaenge if wunsch - 0.4 <= t <= wunsch + 0.4]
     if passend:
         start = max(passend)
     else:
@@ -253,7 +260,15 @@ def schnittpunkte(c, datei, laenge, vor, gesamt, lang_ok=False):
         danach = [s for s, e, w in woerter if wunsch <= s <= wunsch + 0.6]
         laufend = [s for s, e, w in woerter if s <= wunsch < e]
         start = danach[0] if danach else (laufend[0] if laufend else wunsch)
-    start = max(0.0, start - 0.15)
+    start = max(0.0, start - 0.1)
+    # 25.11.: Kein stiller Anfang. Kommt das erste Wort erst später, dorthin springen
+    # (nach 1 s sind schon 40 % weg). Lauter Ton (Schrei, Knall) zählt auch als Anfang.
+    erstes = [s for s, e, w in woerter if s >= start]
+    still = [(a, b) for a, b in pausen if a <= start + 0.05 < b]
+    if still:
+        start = max(start, still[0][1] - 0.05)
+    elif erstes and erstes[0] - start > 0.3 and erstes[0] <= wunsch + 1.5:
+        start = erstes[0] - 0.08
 
     # Ende: Satzende nah an der Wunschlänge, nie über das Clipende hinaus
     ziel = min(start + laenge, gesamt)
@@ -306,7 +321,7 @@ def teste_varianten(wc):
         teile, pos = [], start
         for a, b in stille_stellen(quelle):
             a, b = a + 0.12, b - 0.12
-            if b - a < 0.5 or b <= start or a >= ende:
+            if b - a < 0.4 or b <= start or a >= ende:     # 25.11.: schon ab 0,4 s raus
                 continue
             a, b = max(a, start), min(b, ende)
             if a - pos > 0.3:
@@ -346,7 +361,15 @@ def teste_varianten(wc):
 
 
 def main():
-    liste = kanaele()
+    auftrag = None
+    if AUFTRAG.exists():
+        try:
+            auftrag = json.loads(AUFTRAG.read_text(encoding="utf-8"))
+        except Exception:
+            auftrag = None
+    liste = [auftrag["kanal"]] if auftrag and auftrag.get("kanal") else kanaele()
+    if auftrag:
+        log(f"Sonderauftrag: {auftrag}")
     if not liste:
         log("kanaele.txt ist leer – bitte mindestens einen Kanal eintragen.")
         return
@@ -355,7 +378,8 @@ def main():
 
     # jeden Tag mit einem anderen Kanal anfangen, damit alle drankommen
     tag = int(time.strftime("%j"))
-    liste = liste[tag % len(liste):] + liste[:tag % len(liste)]
+    if not auftrag:
+        liste = liste[tag % len(liste):] + liste[:tag % len(liste)]
 
     import webclipper as wc
     wc.CLIP_LAENGE = CLIP_SEKUNDEN
@@ -374,7 +398,11 @@ def main():
         teile = zeile.split()
         kanal = teile[0]
         try:
-            urls = neueste_videos(kanal)
+            if auftrag and auftrag.get("suche"):
+                urls = neueste_videos(kanal, 40, auftrag["suche"])
+                log(f"{kanal}: {len(urls)} Video(s) mit „{auftrag['suche']}“ im Titel gefunden")
+            else:
+                urls = neueste_videos(kanal)
         except Exception as fehler:
             log(f"{kanal}: Videoliste nicht abrufbar ({fehler})")
             continue
@@ -442,8 +470,20 @@ def main():
     log(f"{len(wc.STATE['clips'])} Clips fertig. Lade für TikTok hoch ...")
 
     import tiktok_links
+    vorher = set(json.loads(tiktok_links.LINKS.read_text(encoding="utf-8"))) if tiktok_links.LINKS.exists() else set()
     tiktok_links.main()
-    log("Fertig. Claude plant die Clips um 19:54 Uhr ein.")
+    if auftrag and auftrag.get("vorschau"):
+        # Vorschau: Clips NICHT in den Puffer, sondern nach clips/vorschau.json -
+        # erst einplanen, wenn Levin sie gesehen und ja gesagt hat.
+        links = json.loads(tiktok_links.LINKS.read_text(encoding="utf-8"))
+        neu = {k: v for k, v in links.items() if k not in vorher}
+        alt = json.loads(VORSCHAU.read_text(encoding="utf-8")) if VORSCHAU.exists() else {}
+        alt.update(neu)
+        VORSCHAU.write_text(json.dumps(alt, indent=1, ensure_ascii=False), encoding="utf-8")
+        tiktok_links.LINKS.write_text(json.dumps({k: v for k, v in links.items() if k not in neu},
+                                                 indent=1, ensure_ascii=False), encoding="utf-8")
+        log(f"Vorschau: {len(neu)} Clips in clips/vorschau.json (nicht im Puffer).")
+    log("Fertig. Claude plant die Clips am Abend ein.")
 
 
 if __name__ == "__main__":
@@ -457,3 +497,4 @@ if __name__ == "__main__":
         main()
     finally:
         SPERRE.unlink(missing_ok=True)
+        AUFTRAG.unlink(missing_ok=True)     # Sonderauftrag gilt nur für einen Lauf

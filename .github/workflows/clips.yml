@@ -5,6 +5,9 @@ on:
     - cron: "17 4 * * *"    # 05:17 Uhr Winterzeit: Clips für den Puffer
     - cron: "17 13 * * *"   # 14:17 Uhr Winterzeit: zweiter Lauf
   workflow_dispatch:         # von Hand starten: Actions -> Clips machen -> Run workflow
+  push:                      # Sonderauftrag: startet, wenn arbeit/auftrag.json gepusht wird
+    branches: [main]
+    paths: ["arbeit/auftrag.json"]
 
 permissions:
   contents: write
@@ -45,6 +48,7 @@ jobs:
           git config user.name "clipper-bot"
           git config user.email "clipper-bot@users.noreply.github.com"
           git add -f clips/*.json arbeit/erledigte_videos.json arbeit/stand.json arbeit/automatik_log.txt 2>/dev/null || true
+          git add -A arbeit/auftrag.json 2>/dev/null || true
           git diff --cached --quiet && exit 0
           git commit -m "Clips vom $(date +%d.%m.%Y)"
           for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
