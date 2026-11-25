@@ -481,8 +481,8 @@ def main():
             log(f"{kanal}: Videoliste nicht abrufbar ({fehler})")
             continue
         for url in urls:
-            if url in erledigt:
-                continue
+            if url in erledigt and not (auftrag and auftrag.get("erneut")):
+                continue    # "erneut": schon geschnittenes Video noch mal (nur für Probe-Clips)
             versuche += 1
             irl = len(teile) > 1 and teile[1].lower() == "irl"
             log(f"Neues Video: {url}")
@@ -541,7 +541,8 @@ def main():
                                       for c in wc.STATE["clips"]))
 
     wc.stand_sichern()          # Titel und Clips für Claude in arbeit/stand.json
-    erledigt.append(ziel)
+    if ziel not in erledigt:
+        erledigt.append(ziel)
     ERLEDIGT.write_text(json.dumps(erledigt[-200:], indent=1), encoding="utf-8")
     log(f"{len(wc.STATE['clips'])} Clips fertig. Lade für TikTok hoch ...")
 
