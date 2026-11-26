@@ -389,3 +389,42 @@
 2026-11-26 14:50  10 Clips fertig. Lade für TikTok hoch ...
 2026-11-26 14:50  Vorschau: 10 Clips in clips/vorschau.json (nicht im Puffer).
 2026-11-26 14:50  Fertig. Claude plant die Clips am Abend ein.
+2026-11-26 14:51  Sonderauftrag: {'kanal': 'jynxzi', 'suche': ['hikaru', 'chess'], 'vorschau': True, 'erneut': True, 'grund': 'Levin 26.11.: Jynxzi-Schach-Clips mit Hikaru'}
+2026-11-26 14:51  jynxzi: 1 Video(s) mit „hikaru“ im Titel gefunden
+2026-11-26 14:51  Neues Video: https://www.twitch.tv/videos/2940589417
+2026-11-26 15:44  Bearbeite Clips (Facecam, Untertitel) ...
+2026-11-26 15:44    Clip 1: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:44    Clip 2: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:45    Clip 3: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:45    Clip 4: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:46    Clip 5: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:46    Clip 6: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:47    Clip 7: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:47    Clip 8: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:47    Clip 9: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:48    Clip 10: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:48    Clip 11: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:49    Clip 12: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:49    Clip 13: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:50    Clip 14: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:50    Clip 15: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:50    Clip 16: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:51    Clip 17: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:51    Clip 18: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:52    Clip 19: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:52    Clip 20: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 15:53    2026-11-26_jynxzi_14_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 2.2-17.8 s, 0 Pausen raus, 15.4 s
+2026-11-26 15:53    2026-11-26_jynxzi_20_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 1.8-16.7 s, 1 Pausen raus, 14.3 s
+2026-11-26 15:53    2026-11-26_jynxzi_16_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 3.2-10.7 s, 1 Pausen raus, 6.9 s
+2026-11-26 15:53    2026-11-26_jynxzi_08_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 1.7-13.7 s, 0 Pausen raus, 11.9 s
+2026-11-26 15:54    2026-11-26_jynxzi_07_15s1.mp4: Variante 15s, 1s vor Höhepunkt, Schnitt 3.0-17.5 s, 0 Pausen raus, 14.5 s
+2026-11-26 15:54    2026-11-26_jynxzi_02.mp4: leiser Anfang -> startet 2.1 s später beim lauten Moment
+2026-11-26 15:54    2026-11-26_jynxzi_02_20s0.mp4: Variante 20s, 0s vor Höhepunkt, Schnitt 5.4-23.5 s, 0 Pausen raus, 18.1 s
+2026-11-26 15:54    2026-11-26_jynxzi_17_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 6.9-17.4 s, 1 Pausen raus, 10.0 s
+2026-11-26 15:55    2026-11-26_jynxzi_04_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 2.1-17.5 s, 0 Pausen raus, 15.4 s
+2026-11-26 15:55    2026-11-26_jynxzi_06_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 3.9-11.0 s, 0 Pausen raus, 7.1 s
+2026-11-26 15:55    2026-11-26_jynxzi_19_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 4.0-15.7 s, 0 Pausen raus, 11.7 s
+2026-11-26 15:55  Beste Clips: 2026-11-26_jynxzi_14_10s0.mp4 (100 P.), 2026-11-26_jynxzi_20_15s0.mp4 (96 P.), 2026-11-26_jynxzi_16_8s0.mp4 (93 P.), 2026-11-26_jynxzi_08_12s0.mp4 (92 P.), 2026-11-26_jynxzi_07_15s1.mp4 (91 P.), 2026-11-26_jynxzi_02_20s0.mp4 (88 P.), 2026-11-26_jynxzi_17_10s0.mp4 (88 P.), 2026-11-26_jynxzi_04_15s0.mp4 (86 P.), 2026-11-26_jynxzi_06_8s0.mp4 (83 P.), 2026-11-26_jynxzi_19_12s0.mp4 (82 P.)
+2026-11-26 15:55  10 Clips fertig. Lade für TikTok hoch ...
+2026-11-26 15:55  Vorschau: 10 Clips in clips/vorschau.json (nicht im Puffer).
+2026-11-26 15:55  Fertig. Claude plant die Clips am Abend ein.
