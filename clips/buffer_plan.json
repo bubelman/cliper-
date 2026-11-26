@@ -190,5 +190,23 @@
   "buffer_status": "error",
   "buffer_fehler": "{'message': 'The daily posting limit for this channel has been reached! Please try reducing the amount of times per day in your schedule and try again later.'}",
   "fehler": "Buffer: YouTube-Tageslimit erreicht – Levin hat es am 26.11. um 16:16 selbst hochgeladen"
+ },
+ {
+  "id": "2026-11-24_stableronaldo_09_30s4_ig",
+  "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261124-0231/2026-11-24_stableronaldo_09_30s4.mp4",
+  "text": "StableRonaldo in GTA 6: Wer schläft da so laut in meinem Bett? 😂 #stableronaldo #gta6 #twitch #clips #reels",
+  "title": "StableRonaldo in GTA 6: Wer schläft da so laut in meinem Bett?",
+  "network": "instagram",
+  "due": "2026-11-26T18:52:00+01:00",
+  "status": "offen"
+ },
+ {
+  "id": "2026-11-25_stableronaldo_13_15s0_ig",
+  "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261125-2119/2026-11-25_stableronaldo_13_15s0.mp4",
+  "text": "StableRonaldo reagiert: Dein Handy riecht nach frischem Obst? 🤨 #stableronaldo #twitch #clips #reels",
+  "title": "StableRonaldo reagiert: Dein Handy riecht nach frischem Obst?",
+  "network": "instagram",
+  "due": "2026-11-26T21:37:00+01:00",
+  "status": "offen"
  }
 ]
