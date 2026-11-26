@@ -110,7 +110,7 @@
   "title": "Jynxzi im Smoking auf chess.com",
   "network": "tiktok",
   "due": "2026-11-26T18:26:00+01:00",
-  "status": "loeschen",
+  "status": "geloescht",
   "buffer_id": "6b071754ea329c34f6dccf8c"
  },
  {
@@ -200,7 +200,7 @@
   "title": "StableRonaldo in GTA 6: Wer schläft da so laut in meinem Bett?",
   "network": "instagram",
   "due": "2026-11-26T18:52:00+01:00",
-  "status": "loeschen",
+  "status": "geloescht",
   "buffer_id": "6b08548f783dfaf962ad1929"
  },
  {
@@ -210,7 +210,7 @@
   "title": "StableRonaldo reagiert: Dein Handy riecht nach frischem Obst?",
   "network": "instagram",
   "due": "2026-11-26T21:37:00+01:00",
-  "status": "loeschen",
+  "status": "geloescht",
   "buffer_id": "6b085490783dfaf962ad19b2"
  },
  {
@@ -220,7 +220,8 @@
   "due": "2026-11-26T18:26:00+01:00",
   "text": "Jynxzi in a tuxedo on chess.com ♟️ #jynxzi #chess #twitch #clips",
   "title": "Jynxzi in a tuxedo on chess.com",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b08555d9f3ae7d1657b5c1b"
  },
  {
   "id": "2026-11-24_stableronaldo_09_30s4_ig_en",
@@ -229,7 +230,8 @@
   "due": "2026-11-26T18:52:00+01:00",
   "text": "StableRonaldo in GTA 6: Who is sleeping so loud in my bed? 😂 #stableronaldo #gta6 #twitch #clips #reels",
   "title": "StableRonaldo in GTA 6: Who is sleeping so loud in my bed?",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b08555ef9be35f0932f6f46"
  },
  {
   "id": "2026-11-25_stableronaldo_13_15s0_ig_en",
@@ -238,6 +240,7 @@
   "due": "2026-11-26T21:37:00+01:00",
   "text": "StableRonaldo reacts: Your phone smells like fresh fruit? 🤨 #stableronaldo #twitch #clips #reels",
   "title": "StableRonaldo reacts: Your phone smells like fresh fruit?",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b08555f4e32cfdd2302b4d7"
  }
 ]
