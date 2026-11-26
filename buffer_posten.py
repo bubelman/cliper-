@@ -13,7 +13,8 @@ PLAN = Path(__file__).parent / "clips" / "buffer_plan.json"
 GEPOSTET = Path(__file__).parent / "clips" / "gepostet.json"
 YT_GEPOSTET = Path(__file__).parent / "clips" / "youtube_gepostet.json"
 PRO_TAG = {"tiktok": 3,    # Levin 25.11.2026: „mach mal auf 3 pro Tag runter“
-           "youtube": 1}   # Levin 25.11.2026: „mach yt nur ein“
+           "youtube": 1,   # Levin 25.11.2026: „mach yt nur ein“ (YouTube erlaubt über die API auch nur 1)
+           "instagram": 3} # Levin 26.11.2026: Instagram Reels dazu, wie TikTok
 KEY = os.environ.get("BUFFER_API_KEY", "").strip()
 API = "https://api.buffer.com"
 
@@ -158,6 +159,8 @@ def main():
             eingabe["metadata"] = {"youtube": {"title": p.get("title") or p.get("text", "")[:100],
                                                "privacy": "public", "madeForKids": False,
                                                "categoryId": "24", "type": "short"}}
+        if p["network"] == "instagram":
+            eingabe["metadata"] = {"instagram": {"type": "reel", "shouldShareToFeed": True}}
         if p["network"] == "tiktok" and p.get("title"):
             eingabe["metadata"] = {"tiktok": {"title": p["title"]}}
         r = gql(m, {"in": eingabe})
@@ -170,6 +173,9 @@ def main():
             p["status"] = "fehler"
             p["fehler"] = (erg.get("message") or json.dumps(r.get("errors"), ensure_ascii=False))[:400]
             print("FEHLER:", p["id"], p["fehler"])
+            if p["network"] == "instagram":
+                for n in ["PostInputMetaData", "InstagramPostMetadataInput", "InstagramPostType"]:
+                    print(n, json.dumps(typ(n), ensure_ascii=False)[:1500])
     PLAN.write_text(json.dumps(plan, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
