@@ -309,3 +309,45 @@
 2026-11-25 21:19  10 Clips fertig. Lade für TikTok hoch ...
 2026-11-25 21:19  Vorschau: 9 Clips in clips/vorschau.json (nicht im Puffer).
 2026-11-25 21:19  Fertig. Claude plant die Clips am Abend ein.
+2026-11-25 22:31  Sonderauftrag: {'kanal': 'stableronaldo', 'vorschau': True, 'erneut': True, 'grund': 'Levin 25.11.: Probe-Clips mit größerer Facecam'}
+2026-11-25 22:31  Neues Video: https://www.twitch.tv/videos/2940685431
+2026-11-26 00:31  Bearbeite Clips (Facecam, Untertitel) ...
+2026-11-26 00:31    Clip 1: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:31    Clip 2: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:31    Clip 3: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:31    Clip 4: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:32    Clip 5: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:32    Clip 6: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:32    Clip 7: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:33    Clip 8: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:33    Clip 9: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:33    Clip 10: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:33    Clip 11: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:34    Clip 12: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:34    Clip 13: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:34    Clip 14: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:35    Clip 15: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:35    Clip 16: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:35    Clip 17: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:35    Clip 18: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:36    Clip 19: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:36    Clip 20: Facecam erkannt -> Facecam oben, Spiel unten
+2026-11-26 00:36    2026-11-26_stableronaldo_01.mp4: leiser Anfang -> startet 2.3 s später beim lauten Moment
+2026-11-26 00:37    2026-11-26_stableronaldo_01_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 6.2-13.9 s, 0 Pausen raus, 7.5 s
+2026-11-26 00:37    2026-11-26_stableronaldo_02_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 4.4-16.7 s, 1 Pausen raus, 7.2 s
+2026-11-26 00:37    2026-11-26_stableronaldo_03_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 3.9-12.5 s, 2 Pausen raus, 7.5 s
+2026-11-26 00:37    2026-11-26_stableronaldo_04_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 3.9-16.6 s, 1 Pausen raus, 11.9 s
+2026-11-26 00:37    2026-11-26_stableronaldo_05.mp4: leiser Anfang -> startet 0.6 s später beim lauten Moment
+2026-11-26 00:38    2026-11-26_stableronaldo_05_15s1.mp4: Variante 15s, 1s vor Höhepunkt, Schnitt 3.5-17.1 s, 1 Pausen raus, 13.2 s
+2026-11-26 00:38    2026-11-26_stableronaldo_06.mp4: leiser Anfang -> startet 1.1 s später beim lauten Moment
+2026-11-26 00:38    2026-11-26_stableronaldo_06_20s0.mp4: Variante 20s, 0s vor Höhepunkt, Schnitt 5.0-26.1 s, 2 Pausen raus, 20.0 s
+2026-11-26 00:38    2026-11-26_stableronaldo_07_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 3.9-13.5 s, 0 Pausen raus, 9.6 s
+2026-11-26 00:38    2026-11-26_stableronaldo_08.mp4: leiser Anfang -> startet 1.3 s später beim lauten Moment
+2026-11-26 00:38    2026-11-26_stableronaldo_08_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 6.8-20.5 s, 2 Pausen raus, 11.3 s
+2026-11-26 00:39    2026-11-26_stableronaldo_09_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 3.9-12.0 s, 2 Pausen raus, 5.5 s
+2026-11-26 00:39    2026-11-26_stableronaldo_10.mp4: leiser Anfang -> startet 1.1 s später beim lauten Moment
+2026-11-26 00:39    2026-11-26_stableronaldo_10_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 5.1-16.2 s, 3 Pausen raus, 6.4 s
+2026-11-26 00:39  Beste Clips: 2026-11-26_stableronaldo_01_10s0.mp4 (0 P.), 2026-11-26_stableronaldo_02_15s0.mp4 (0 P.), 2026-11-26_stableronaldo_03_8s0.mp4 (0 P.), 2026-11-26_stableronaldo_04_12s0.mp4 (0 P.), 2026-11-26_stableronaldo_05_15s1.mp4 (0 P.), 2026-11-26_stableronaldo_06_20s0.mp4 (0 P.), 2026-11-26_stableronaldo_07_10s0.mp4 (0 P.), 2026-11-26_stableronaldo_08_15s0.mp4 (0 P.), 2026-11-26_stableronaldo_09_8s0.mp4 (0 P.), 2026-11-26_stableronaldo_10_12s0.mp4 (0 P.)
+2026-11-26 00:39  10 Clips fertig. Lade für TikTok hoch ...
+2026-11-26 00:39  Vorschau: 10 Clips in clips/vorschau.json (nicht im Puffer).
+2026-11-26 00:39  Fertig. Claude plant die Clips am Abend ein.
