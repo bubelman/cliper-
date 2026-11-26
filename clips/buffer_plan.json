@@ -166,7 +166,8 @@
   "title": "StableRonaldo sieht ein altes Foto von sich: Look how ugly I was",
   "network": "youtube",
   "due": "2026-11-26T15:27:00+01:00",
-  "status": "offen",
-  "extra": true
+  "status": "geplant",
+  "extra": true,
+  "buffer_id": "6b083a5797cc1e208020042e"
  }
 ]
