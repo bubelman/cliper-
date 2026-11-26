@@ -473,8 +473,14 @@ def main():
         kanal = teile[0]
         try:
             if auftrag and auftrag.get("suche"):
-                urls = neueste_videos(kanal, 40, auftrag["suche"])
-                log(f"{kanal}: {len(urls)} Video(s) mit „{auftrag['suche']}“ im Titel gefunden")
+                # "suche" kann eine Liste sein: erstes Wort mit Treffern gewinnt (z. B. ["hikaru", "chess"])
+                woerter = auftrag["suche"] if isinstance(auftrag["suche"], list) else [auftrag["suche"]]
+                urls = []
+                for wort in woerter:
+                    urls = neueste_videos(kanal, 40, wort)
+                    log(f"{kanal}: {len(urls)} Video(s) mit „{wort}“ im Titel gefunden")
+                    if urls:
+                        break
             else:
                 urls = neueste_videos(kanal)
         except Exception as fehler:
