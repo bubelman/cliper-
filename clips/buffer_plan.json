@@ -141,7 +141,9 @@
   "network": "tiktok",
   "due": "2026-11-26T16:03:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b0728dc5e4da1697fd9da00"
+  "buffer_id": "6b0728dc5e4da1697fd9da00",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7712497890525973799"
  },
  {
   "id": "2026-11-25_ohnepixel_15_10s0",
@@ -198,7 +200,8 @@
   "title": "StableRonaldo in GTA 6: Wer schläft da so laut in meinem Bett?",
   "network": "instagram",
   "due": "2026-11-26T18:52:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b08548f783dfaf962ad1929"
  },
  {
   "id": "2026-11-25_stableronaldo_13_15s0_ig",
@@ -207,6 +210,7 @@
   "title": "StableRonaldo reagiert: Dein Handy riecht nach frischem Obst?",
   "network": "instagram",
   "due": "2026-11-26T21:37:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b085490783dfaf962ad19b2"
  }
 ]
