@@ -110,7 +110,7 @@
   "title": "Jynxzi im Smoking auf chess.com",
   "network": "tiktok",
   "due": "2026-11-26T18:26:00+01:00",
-  "status": "geplant",
+  "status": "loeschen",
   "buffer_id": "6b071754ea329c34f6dccf8c"
  },
  {
@@ -200,7 +200,7 @@
   "title": "StableRonaldo in GTA 6: Wer schläft da so laut in meinem Bett?",
   "network": "instagram",
   "due": "2026-11-26T18:52:00+01:00",
-  "status": "geplant",
+  "status": "loeschen",
   "buffer_id": "6b08548f783dfaf962ad1929"
  },
  {
@@ -210,7 +210,34 @@
   "title": "StableRonaldo reagiert: Dein Handy riecht nach frischem Obst?",
   "network": "instagram",
   "due": "2026-11-26T21:37:00+01:00",
-  "status": "geplant",
+  "status": "loeschen",
   "buffer_id": "6b085490783dfaf962ad19b2"
+ },
+ {
+  "id": "2026-11-25_jynxzi_14_10s0_en",
+  "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261125-1633/2026-11-25_jynxzi_14_10s0.mp4",
+  "network": "tiktok",
+  "due": "2026-11-26T18:26:00+01:00",
+  "text": "Jynxzi in a tuxedo on chess.com ♟️ #jynxzi #chess #twitch #clips",
+  "title": "Jynxzi in a tuxedo on chess.com",
+  "status": "offen"
+ },
+ {
+  "id": "2026-11-24_stableronaldo_09_30s4_ig_en",
+  "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261124-0231/2026-11-24_stableronaldo_09_30s4.mp4",
+  "network": "instagram",
+  "due": "2026-11-26T18:52:00+01:00",
+  "text": "StableRonaldo in GTA 6: Who is sleeping so loud in my bed? 😂 #stableronaldo #gta6 #twitch #clips #reels",
+  "title": "StableRonaldo in GTA 6: Who is sleeping so loud in my bed?",
+  "status": "offen"
+ },
+ {
+  "id": "2026-11-25_stableronaldo_13_15s0_ig_en",
+  "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261125-2119/2026-11-25_stableronaldo_13_15s0.mp4",
+  "network": "instagram",
+  "due": "2026-11-26T21:37:00+01:00",
+  "text": "StableRonaldo reacts: Your phone smells like fresh fruit? 🤨 #stableronaldo #twitch #clips #reels",
+  "title": "StableRonaldo reacts: Your phone smells like fresh fruit?",
+  "status": "offen"
  }
 ]
