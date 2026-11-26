@@ -7,7 +7,9 @@
   "network": "tiktok",
   "due": "2026-11-24T17:58:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b05be253cafd3d6823fdafe"
+  "buffer_id": "6b05be253cafd3d6823fdafe",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7711783448066673959"
  },
  {
   "id": "2026-11-22_stableronaldo_02_15s0",
@@ -17,7 +19,9 @@
   "network": "tiktok",
   "due": "2026-11-24T20:07:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b05d7663f48af62c2299efa"
+  "buffer_id": "6b05d7663f48af62c2299efa",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7711816685908512033"
  },
  {
   "id": "2026-11-24_stableronaldo_15_20s0",
@@ -27,7 +31,9 @@
   "network": "tiktok",
   "due": "2026-11-24T21:41:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b05d767bd6e90a328226a20"
+  "buffer_id": "6b05d767bd6e90a328226a20",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7711840878209387815"
  },
  {
   "id": "2026-11-24_stableronaldo_11_15s1",
@@ -37,7 +43,9 @@
   "network": "tiktok",
   "due": "2026-11-24T23:16:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b05d76804f9f3a5e6050c60"
+  "buffer_id": "6b05d76804f9f3a5e6050c60",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7711865353634057505"
  },
  {
   "id": "2026-11-24_stableronaldo_04_20s1",
@@ -47,7 +55,9 @@
   "network": "tiktok",
   "due": "2026-11-25T12:38:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b05d768bd6e90a328226aa3"
+  "buffer_id": "6b05d768bd6e90a328226aa3",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7712072021869382951"
  },
  {
   "id": "2026-11-24_stableronaldo_09_30s4",
@@ -57,7 +67,9 @@
   "network": "tiktok",
   "due": "2026-11-25T15:09:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b05d76920f9e770f085453d"
+  "buffer_id": "6b05d76920f9e770f085453d",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7712110947376074023"
  },
  {
   "id": "2026-11-25_jynxzi_16_12s0",
@@ -67,7 +79,9 @@
   "network": "tiktok",
   "due": "2026-11-25T19:13:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b071751d3475d7262556966"
+  "buffer_id": "6b071751d3475d7262556966",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7712173832123075873"
  },
  {
   "id": "2026-11-25_jynxzi_20_15s0",
@@ -147,7 +161,9 @@
   "network": "youtube",
   "due": "2026-11-25T20:22:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b0728dd827512a7c4ca1167"
+  "buffer_id": "6b0728dd827512a7c4ca1167",
+  "buffer_status": "sent",
+  "link": "https://www.youtube.com/shorts/k0wanh_XCBk"
  },
  {
   "id": "2026-11-24_stableronaldo_11_15s1_yt",
@@ -157,7 +173,9 @@
   "network": "youtube",
   "due": "2026-11-26T12:44:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b0728de827512a7c4ca11cd"
+  "buffer_id": "6b0728de827512a7c4ca11cd",
+  "buffer_status": "sent",
+  "link": "https://www.youtube.com/shorts/AGL7VUHC33c"
  },
  {
   "id": "2026-11-25_stableronaldo_15_10s0_yt",
@@ -168,6 +186,8 @@
   "due": "2026-11-26T15:27:00+01:00",
   "status": "geplant",
   "extra": true,
-  "buffer_id": "6b083a5797cc1e208020042e"
+  "buffer_id": "6b083a5797cc1e208020042e",
+  "buffer_status": "error",
+  "buffer_fehler": "{'message': 'The daily posting limit for this channel has been reached! Please try reducing the amount of times per day in your schedule and try again later.'}"
  }
 ]
