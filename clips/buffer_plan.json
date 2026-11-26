@@ -184,10 +184,11 @@
   "title": "StableRonaldo sieht ein altes Foto von sich: Look how ugly I was",
   "network": "youtube",
   "due": "2026-11-26T15:27:00+01:00",
-  "status": "geplant",
+  "status": "manuell",
   "extra": true,
   "buffer_id": "6b083a5797cc1e208020042e",
   "buffer_status": "error",
-  "buffer_fehler": "{'message': 'The daily posting limit for this channel has been reached! Please try reducing the amount of times per day in your schedule and try again later.'}"
+  "buffer_fehler": "{'message': 'The daily posting limit for this channel has been reached! Please try reducing the amount of times per day in your schedule and try again later.'}",
+  "fehler": "Buffer: YouTube-Tageslimit erreicht – Levin hat es am 26.11. um 16:16 selbst hochgeladen"
  }
 ]
