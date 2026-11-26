@@ -221,7 +221,9 @@
   "text": "Jynxzi in a tuxedo on chess.com ♟️ #jynxzi #chess #twitch #clips",
   "title": "Jynxzi in a tuxedo on chess.com",
   "status": "geplant",
-  "buffer_id": "6b08555d9f3ae7d1657b5c1b"
+  "buffer_id": "6b08555d9f3ae7d1657b5c1b",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7712532789333200161"
  },
  {
   "id": "2026-11-24_stableronaldo_09_30s4_ig_en",
@@ -231,7 +233,9 @@
   "text": "StableRonaldo in GTA 6: Who is sleeping so loud in my bed? 😂 #stableronaldo #gta6 #twitch #clips #reels",
   "title": "StableRonaldo in GTA 6: Who is sleeping so loud in my bed?",
   "status": "geplant",
-  "buffer_id": "6b08555ef9be35f0932f6f46"
+  "buffer_id": "6b08555ef9be35f0932f6f46",
+  "buffer_status": "sent",
+  "link": "https://www.instagram.com/reel/DgNrybeg40i/"
  },
  {
   "id": "2026-11-25_stableronaldo_13_15s0_ig_en",
@@ -250,7 +254,8 @@
   "title": "ohnePixel in GTA 6: Lucia drift-parks on the sidewalk",
   "network": "tiktok",
   "due": "2026-11-27T13:11:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b087a85c81617797dd2123f"
  },
  {
   "id": "2026-11-22_stableronaldo_13_15s1",
@@ -259,7 +264,8 @@
   "title": "StableRonaldo in GTA 6: Lucia beats him up – \"that's how it's done!\"",
   "network": "tiktok",
   "due": "2026-11-27T19:38:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b087a861fa409158289ea64"
  },
  {
   "id": "2026-11-25_ohnepixel_12_8s0",
@@ -268,7 +274,8 @@
   "title": "ohnePixel in GTA 6: the boat hijack ends in WASTED",
   "network": "tiktok",
   "due": "2026-11-27T22:07:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b087a879068b6e07954bca4"
  },
  {
   "id": "2026-11-25_ohnepixel_10_15s0_ig",
@@ -277,7 +284,8 @@
   "title": "ohnePixel in GTA 6: \"What are we even stealing?\"",
   "network": "instagram",
   "due": "2026-11-27T14:23:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b087a87f0a96d0f217e5077"
  },
  {
   "id": "2026-11-22_stableronaldo_10_20s0_ig",
@@ -286,7 +294,8 @@
   "title": "StableRonaldo in GTA 6: shootout to protect Rafa",
   "network": "instagram",
   "due": "2026-11-27T17:49:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b087a881fa409158289eac6"
  },
  {
   "id": "2026-11-25_jynxzi_14_10s0_ig",
@@ -295,7 +304,8 @@
   "title": "Jynxzi in a tuxedo on chess.com",
   "network": "instagram",
   "due": "2026-11-27T20:56:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b087a88f0a96d0f217e50c4"
  },
  {
   "id": "2026-11-24_stableronaldo_09_30s4_yt",
@@ -304,6 +314,7 @@
   "title": "StableRonaldo in GTA 6: Who is sleeping so loud in my bed?",
   "network": "youtube",
   "due": "2026-11-27T16:52:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b087a89f0a96d0f217e5111"
  }
 ]
