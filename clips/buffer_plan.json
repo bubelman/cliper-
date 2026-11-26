@@ -158,5 +158,15 @@
   "due": "2026-11-26T12:44:00+01:00",
   "status": "geplant",
   "buffer_id": "6b0728de827512a7c4ca11cd"
+ },
+ {
+  "id": "2026-11-25_stableronaldo_15_10s0_yt",
+  "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261125-2119/2026-11-25_stableronaldo_15_10s0.mp4",
+  "text": "StableRonaldo sieht ein altes Foto von sich: Look how ugly I was 😂 #stableronaldo #twitch #shorts #clips",
+  "title": "StableRonaldo sieht ein altes Foto von sich: Look how ugly I was",
+  "network": "youtube",
+  "due": "2026-11-26T15:27:00+01:00",
+  "status": "offen",
+  "extra": true
  }
 ]

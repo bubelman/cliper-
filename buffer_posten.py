@@ -97,7 +97,7 @@ def main():
     for p in sorted([p for p in plan if p.get("status", "offen") == "offen"], key=lambda p: p["due"]):
         k = (p["network"], p["due"][:10])
         grenze = PRO_TAG.get(p["network"], 99)
-        if tage.get(k, 0) >= grenze:
+        if tage.get(k, 0) >= grenze and not p.get("extra"):   # "extra": Levin will ausnahmsweise mehr
             p["status"] = "zurueck"
             p["fehler"] = f"schon {grenze} {p['network']}-Posts an diesem Tag - Clip bleibt im Puffer"
             (gepostet if p["network"] == "tiktok" else yt_gepostet).pop(p["url"], None)
