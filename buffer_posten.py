@@ -108,6 +108,33 @@ def main():
     YT_GEPOSTET.write_text(json.dumps(yt_gepostet, ensure_ascii=False, indent=1), encoding="utf-8")
     PLAN.write_text(json.dumps(plan, ensure_ascii=False, indent=1), encoding="utf-8")
 
+    # 26.11.: Status bei Buffer nachsehen (gesendet? Fehler?) für alles, was schon fällig war
+    import datetime as dt
+    jetzt = dt.datetime.now(dt.timezone.utc)
+    for p in plan:
+        if p.get("buffer_id") and p.get("status") == "geplant":
+            try:
+                faellig = dt.datetime.fromisoformat(p["due"]) <= jetzt
+            except ValueError:
+                faellig = False
+            if not faellig or p.get("buffer_status") == "sent":
+                continue
+            r = gql("query($i:PostInput!){ post(input:$i){ id status error { message } externalLink } }",
+                    {"i": {"id": p["buffer_id"]}})
+            post = (r.get("data") or {}).get("post")
+            if post:
+                p["buffer_status"] = post.get("status")
+                if post.get("error"):
+                    p["buffer_fehler"] = str(post["error"])[:300]
+                if post.get("externalLink"):
+                    p["link"] = post["externalLink"]
+            else:
+                p["buffer_status"] = "unbekannt: " + json.dumps(r.get("errors"), ensure_ascii=False)[:250]
+            print("Status:", p["id"], p.get("buffer_status"), p.get("buffer_fehler", ""))
+    if "--status" in sys.argv and not any(p.get("buffer_status", "").startswith("unbekannt") is False for p in plan):
+        print(typ("Post"))
+    PLAN.write_text(json.dumps(plan, ensure_ascii=False, indent=1), encoding="utf-8")
+
     offen = [p for p in plan if p.get("status", "offen") == "offen"]
     ch = kanaele()
     if not offen:
