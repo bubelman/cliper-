@@ -12,6 +12,7 @@ from pathlib import Path
 PLAN = Path(__file__).parent / "clips" / "buffer_plan.json"
 GEPOSTET = Path(__file__).parent / "clips" / "gepostet.json"
 YT_GEPOSTET = Path(__file__).parent / "clips" / "youtube_gepostet.json"
+NOTIFICATION = {"tiktok", "youtube"}   # diese Netzwerke: Erinnerung statt automatisch posten
 PRO_TAG = {"tiktok": 3,    # Levin 25.11.2026: „mach mal auf 3 pro Tag runter“
            "youtube": 1,   # Levin 25.11.2026: „mach yt nur ein“ (YouTube erlaubt über die API auch nur 1)
            "instagram": 3} # Levin 26.11.2026: Instagram Reels dazu, wie TikTok
@@ -152,7 +153,10 @@ def main():
         if not cid:
             p["status"], p["fehler"] = "fehler", f"kein {p['network']}-Kanal in Buffer verbunden"
             continue
-        eingabe = {"text": p.get("text", ""), "channelId": cid, "schedulingType": "automatic",
+        # 27.11. (Levin): TikTok und YouTube mit Zwischenschritt - Buffer schickt zur Zeit eine
+        # Push-Nachricht, Levin postet dann selbst in der App (über Buffer gepostete Videos bekamen kaum Views).
+        art = "notification" if p["network"] in NOTIFICATION else "automatic"
+        eingabe = {"text": p.get("text", ""), "channelId": cid, "schedulingType": art,
                    "mode": "customScheduled", "dueAt": p["due"], "needsApproval": False,
                    "assets": [{"video": {"url": p["url"]}}]}
         if p["network"] == "youtube":
