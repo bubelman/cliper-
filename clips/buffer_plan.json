@@ -332,7 +332,7 @@
   "network": "tiktok",
   "due": "2026-11-27T19:38:00+01:00",
   "id": "2026-11-22_stableronaldo_13_15s1_hand",
-  "status": "geplant",
+  "status": "loeschen",
   "buffer_id": "6b09b110015034238d415b3e"
  },
  {
@@ -342,7 +342,25 @@
   "network": "tiktok",
   "due": "2026-11-27T22:07:00+01:00",
   "id": "2026-11-25_ohnepixel_12_8s0_hand",
-  "status": "geplant",
+  "status": "loeschen",
   "buffer_id": "6b09b11134d224b14a9c95f8"
+ },
+ {
+  "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261122-2151/2026-11-22_stableronaldo_13_15s1.mp4",
+  "text": "StableRonaldo in GTA 6: Lucia beats him up – \"that's how it's done!\" 👊 #stableronaldo #gta6 #gtavi #twitch #clips",
+  "title": "StableRonaldo in GTA 6: Lucia beats him up – \"that's how it's done!\"",
+  "network": "tiktok",
+  "due": "2026-11-27T19:38:00+01:00",
+  "id": "2026-11-22_stableronaldo_13_15s1_auto",
+  "status": "offen"
+ },
+ {
+  "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261125-0031/2026-11-25_ohnepixel_12_8s0.mp4",
+  "text": "ohnePixel in GTA 6: the boat hijack ends in WASTED 💀 #ohnepixel #gta6 #gtavi #twitch #clips",
+  "title": "ohnePixel in GTA 6: the boat hijack ends in WASTED",
+  "network": "tiktok",
+  "due": "2026-11-27T22:07:00+01:00",
+  "id": "2026-11-25_ohnepixel_12_8s0_auto",
+  "status": "offen"
  }
 ]

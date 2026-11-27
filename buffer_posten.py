@@ -12,7 +12,7 @@ from pathlib import Path
 PLAN = Path(__file__).parent / "clips" / "buffer_plan.json"
 GEPOSTET = Path(__file__).parent / "clips" / "gepostet.json"
 YT_GEPOSTET = Path(__file__).parent / "clips" / "youtube_gepostet.json"
-NOTIFICATION = {"tiktok", "youtube"}   # diese Netzwerke: Erinnerung statt automatisch posten
+NOTIFICATION = set()   # 27.11.: Levin will keine Erinnerungen ("das bringt nicht") - alles automatisch
 PRO_TAG = {"tiktok": 3,    # Levin 25.11.2026: „mach mal auf 3 pro Tag runter“
            "youtube": 1,   # Levin 25.11.2026: „mach yt nur ein“ (YouTube erlaubt über die API auch nur 1)
            "instagram": 3} # Levin 26.11.2026: Instagram Reels dazu, wie TikTok
