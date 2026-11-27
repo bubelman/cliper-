@@ -374,7 +374,8 @@
   "title": "StableRonaldo sees an old photo of himself: \"Look how ugly I was\"",
   "network": "instagram",
   "due": "2026-11-27T21:23:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b09bc1cc4601a35669e7f0d"
  },
  {
   "id": "2026-11-26_jynxzi_14_10s0_ig_we",
@@ -383,7 +384,8 @@
   "title": "Hikaru asks Jynxzi what opening he plays",
   "network": "instagram",
   "due": "2026-11-28T13:23:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b09bc1dd5bf252ef53bcbbb"
  },
  {
   "id": "2026-11-22_stableronaldo_13_15s1_ig_we",
@@ -392,7 +394,8 @@
   "title": "StableRonaldo in GTA 6: Lucia beats him up – \"that's how it's done!\"",
   "network": "instagram",
   "due": "2026-11-28T18:13:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b09bc1d437395ca6eeb51d8"
  },
  {
   "id": "2026-11-25_ohnepixel_12_8s0_ig_we",
@@ -401,7 +404,8 @@
   "title": "ohnePixel in GTA 6: the boat hijack ends in WASTED",
   "network": "instagram",
   "due": "2026-11-28T21:23:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b09bc1ed5bf252ef53bcbec"
  },
  {
   "id": "2026-11-26_jynxzi_16_8s0_ig_we",
@@ -410,7 +414,8 @@
   "title": "Hikaru shows Jynxzi a mate in one",
   "network": "instagram",
   "due": "2026-11-29T13:23:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b09bc1fd5bf252ef53bcc3e"
  },
  {
   "id": "2026-11-25_jynxzi_14_10s0_ig_we",
@@ -419,7 +424,8 @@
   "title": "Jynxzi in a tuxedo on chess.com",
   "network": "instagram",
   "due": "2026-11-29T18:13:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b09bc1fc4601a35669e7fb2"
  },
  {
   "id": "2026-11-25_stableronaldo_09_8s0_ig_we",
@@ -428,6 +434,7 @@
   "title": "StableRonaldo: \"I look so dumb, bro\"",
   "network": "instagram",
   "due": "2026-11-29T21:23:00+01:00",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b09bc20d5bf252ef53bcc6e"
  }
 ]
