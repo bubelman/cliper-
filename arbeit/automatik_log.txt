@@ -548,3 +548,39 @@
 2026-11-27 18:01  10 Clips fertig. Lade für TikTok hoch ...
 2026-11-27 18:01  Vorschau: 10 Clips in clips/vorschau.json (nicht im Puffer).
 2026-11-27 18:01  Fertig. Claude plant die Clips am Abend ein.
+2026-11-27 18:32  Neues Video: https://www.twitch.tv/videos/2934870795
+2026-11-27 19:53  Bearbeite Clips (Facecam, Untertitel) ...
+2026-11-27 19:53    Clip 1: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 19:54    Clip 2: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 19:55    Clip 3: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 19:56    Clip 4: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 19:56    Clip 5: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 19:57    Clip 6: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 19:58    Clip 7: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 19:59    Clip 8: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 19:59    Clip 9: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:00    Clip 10: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:01    Clip 11: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:01    Clip 12: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:02    Clip 13: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:03    Clip 14: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:04    Clip 15: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:04    Clip 16: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:05    Clip 17: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:06    Clip 18: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:06    Clip 19: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:07    Clip 20: Kamera-Stream -> Ausschnitt aufs Gesicht
+2026-11-27 20:08    2026-11-27_ishowspeed_10_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 2.7-21.2 s, 0 Pausen raus, 18.4 s
+2026-11-27 20:09    2026-11-27_ishowspeed_09_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 4.1-18.9 s, 0 Pausen raus, 14.8 s
+2026-11-27 20:09    2026-11-27_ishowspeed_08_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 7.1-14.9 s, 0 Pausen raus, 7.8 s
+2026-11-27 20:10    2026-11-27_ishowspeed_05_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 2.0-14.4 s, 1 Pausen raus, 11.8 s
+2026-11-27 20:11    2026-11-27_ishowspeed_13_15s1.mp4: Variante 15s, 1s vor Höhepunkt, Schnitt 1.2-15.9 s, 0 Pausen raus, 14.8 s
+2026-11-27 20:11    2026-11-27_ishowspeed_02_20s0.mp4: Variante 20s, 0s vor Höhepunkt, Schnitt 2.0-22.2 s, 0 Pausen raus, 20.2 s
+2026-11-27 20:11    2026-11-27_ishowspeed_18.mp4: leiser Anfang -> startet 0.5 s später beim lauten Moment
+2026-11-27 20:12    2026-11-27_ishowspeed_18_10s0.mp4: Variante 10s, 0s vor Höhepunkt, Schnitt 2.5-13.4 s, 0 Pausen raus, 11.0 s
+2026-11-27 20:12    2026-11-27_ishowspeed_16_15s0.mp4: Variante 15s, 0s vor Höhepunkt, Schnitt 3.8-18.8 s, 0 Pausen raus, 15.0 s
+2026-11-27 20:13    2026-11-27_ishowspeed_03_8s0.mp4: Variante 8s, 0s vor Höhepunkt, Schnitt 1.5-11.2 s, 2 Pausen raus, 8.6 s
+2026-11-27 20:14    2026-11-27_ishowspeed_12_12s0.mp4: Variante 12s, 0s vor Höhepunkt, Schnitt 1.7-14.7 s, 0 Pausen raus, 13.0 s
+2026-11-27 20:14  Beste Clips: 2026-11-27_ishowspeed_10_10s0.mp4 (100 P.), 2026-11-27_ishowspeed_09_15s0.mp4 (91 P.), 2026-11-27_ishowspeed_08_8s0.mp4 (79 P.), 2026-11-27_ishowspeed_05_12s0.mp4 (74 P.), 2026-11-27_ishowspeed_13_15s1.mp4 (74 P.), 2026-11-27_ishowspeed_02_20s0.mp4 (70 P.), 2026-11-27_ishowspeed_18_10s0.mp4 (67 P.), 2026-11-27_ishowspeed_16_15s0.mp4 (66 P.), 2026-11-27_ishowspeed_03_8s0.mp4 (65 P.), 2026-11-27_ishowspeed_12_12s0.mp4 (62 P.)
+2026-11-27 20:14  10 Clips fertig. Lade für TikTok hoch ...
+2026-11-27 20:14  Fertig. Claude plant die Clips am Abend ein.
