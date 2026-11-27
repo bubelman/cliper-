@@ -13,6 +13,7 @@ def git(*a):
 
 
 meine = {f: Path(f).read_text(encoding="utf-8") for f in DATEIEN if Path(f).exists()}
+auftrag_weg = not Path("arbeit/auftrag.json").exists()   # auto.py löscht den Auftrag nach dem Lauf
 basis = git("rev-parse", "HEAD").stdout.strip()
 git("fetch", "-q", "origin", "main")
 git("reset", "-q", "--hard", "origin/main")
@@ -35,6 +36,9 @@ for f, text in meine.items():
         Path(f).write_text(json.dumps(a, indent=1, ensure_ascii=False), encoding="utf-8")
     git("add", "-f", f)
 
+# 27.11.: Nach dem reset war der Auftrag wieder da und lief bei jedem Lauf weiter - jetzt wirklich löschen
+if auftrag_weg and Path("arbeit/auftrag.json").exists():
+    Path("arbeit/auftrag.json").unlink()
 git("add", "-A", "arbeit/auftrag.json")
 if git("diff", "--cached", "--quiet").returncode:
     import time
