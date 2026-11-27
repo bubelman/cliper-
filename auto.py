@@ -406,6 +406,12 @@ def teste_varianten(wc):
         if not teile:
             teile = [(start, ende)]
         dauer = sum(b - a for a, b in teile)
+        try:
+            QB, QH = (int(x) for x in subprocess.run(
+                ["ffprobe", "-v", "error", "-select_streams", "v", "-show_entries", "stream=width,height",
+                 "-of", "csv=p=0", str(quelle)], capture_output=True, text=True).stdout.strip().split(",")[:2])
+        except Exception:
+            QB, QH = 1080, 1920
         ziel = quelle.with_name(f"{quelle.stem}_{laenge}s{vor}.mp4")
         kette = []
         for n, (a, b) in enumerate(teile):
@@ -413,7 +419,25 @@ def teste_varianten(wc):
                          f"[0:a]atrim={a:.2f}:{b:.2f},asetpts=PTS-STARTPTS,"
                          f"afade=t=in:d=0.03,afade=t=out:st={max(0, b - a - 0.05):.2f}:d=0.05[a{n}];")
         kette.append("".join(f"[v{n}][a{n}]" for n in range(len(teile)))
-                     + f"concat=n={len(teile)}:v=1:a=1[v][a]")
+                     + f"concat=n={len(teile)}:v=1:a=1[vc][ac];")
+        # 27.11. (Levin: „die Clips können noch deutlich besser“):
+        # 1) kurzer Zoom (Punch-in, 10 %) auf den lautesten Moment - wie bei guten TikTok-Edits
+        # 2) Lautstärke angleichen (loudnorm auf -14 LUFS, TikTok-/YouTube-Standard)
+        zoom = ""
+        try:
+            werte, beste, versatz = lautstaerke(quelle), None, 0.0
+            for a_, b_ in teile:
+                for t_, db in werte:
+                    if a_ <= t_ < b_ and (beste is None or db > beste[1]):
+                        beste = (versatz + t_ - a_, db)
+                versatz += b_ - a_
+            if beste and 0.8 <= beste[0] <= dauer - 0.8:
+                za, zb = max(0.0, beste[0] - 0.15), beste[0] + 0.75
+                zoom = (f"scale=w='trunc(iw*(1+0.10*between(t,{za:.2f},{zb:.2f}))/2)*2':h=-2:eval=frame,"
+                        f"crop={QB}:{QH}:(in_w-{QB})/2:(in_h-{QH})/2,")
+        except Exception as fehler:
+            log(f"  Zoom übersprungen ({fehler})")
+        kette.append(f"[vc]{zoom}null[v];[ac]loudnorm=I=-14:TP=-1.5:LRA=11[a]")
         befehl = ["ffmpeg", "-y", "-loglevel", "error", "-i", str(quelle),
                   "-filter_complex", "".join(kette), "-map", "[v]", "-map", "[a]",
                   "-c:v", "libx264", "-preset", "veryfast",
