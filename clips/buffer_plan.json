@@ -301,7 +301,9 @@
   "network": "instagram",
   "due": "2026-11-27T17:49:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b087a881fa409158289eac6"
+  "buffer_id": "6b087a881fa409158289eac6",
+  "buffer_status": "sent",
+  "link": "https://www.instagram.com/reel/DgQJYOMImUo/"
  },
  {
   "id": "2026-11-25_jynxzi_14_10s0_ig",
@@ -310,7 +312,7 @@
   "title": "Jynxzi in a tuxedo on chess.com",
   "network": "instagram",
   "due": "2026-11-27T20:56:00+01:00",
-  "status": "loeschen",
+  "status": "geloescht",
   "buffer_id": "6b087a88f0a96d0f217e50c4"
  },
  {
@@ -352,7 +354,7 @@
   "network": "tiktok",
   "due": "2026-11-27T19:38:00+01:00",
   "id": "2026-11-22_stableronaldo_13_15s1_auto",
-  "status": "loeschen",
+  "status": "geloescht",
   "buffer_id": "6b09b2b8bb117e5ba7621765"
  },
  {
@@ -362,7 +364,7 @@
   "network": "tiktok",
   "due": "2026-11-27T22:07:00+01:00",
   "id": "2026-11-25_ohnepixel_12_8s0_auto",
-  "status": "loeschen",
+  "status": "geloescht",
   "buffer_id": "6b09b2b82137ad18e1dc4b2e"
  }
 ]
