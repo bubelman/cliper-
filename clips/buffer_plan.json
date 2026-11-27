@@ -245,7 +245,9 @@
   "text": "StableRonaldo reacts: Your phone smells like fresh fruit? 🤨 #stableronaldo #twitch #clips #reels",
   "title": "StableRonaldo reacts: Your phone smells like fresh fruit?",
   "status": "geplant",
-  "buffer_id": "6b08555f4e32cfdd2302b4d7"
+  "buffer_id": "6b08555f4e32cfdd2302b4d7",
+  "buffer_status": "sent",
+  "link": "https://www.instagram.com/reel/DgN-rM2h8Eo/"
  },
  {
   "id": "2026-11-24_ohnepixel_11_15s0",
@@ -255,7 +257,9 @@
   "network": "tiktok",
   "due": "2026-11-27T13:11:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b087a85c81617797dd2123f"
+  "buffer_id": "6b087a85c81617797dd2123f",
+  "buffer_status": "sent",
+  "link": "https://tiktok.com/@clips01340993/video/7712822719779294503"
  },
  {
   "id": "2026-11-22_stableronaldo_13_15s1",
@@ -264,7 +268,7 @@
   "title": "StableRonaldo in GTA 6: Lucia beats him up – \"that's how it's done!\"",
   "network": "tiktok",
   "due": "2026-11-27T19:38:00+01:00",
-  "status": "loeschen",
+  "status": "geloescht",
   "buffer_id": "6b087a861fa409158289ea64"
  },
  {
@@ -274,7 +278,7 @@
   "title": "ohnePixel in GTA 6: the boat hijack ends in WASTED",
   "network": "tiktok",
   "due": "2026-11-27T22:07:00+01:00",
-  "status": "loeschen",
+  "status": "geloescht",
   "buffer_id": "6b087a879068b6e07954bca4"
  },
  {
@@ -285,7 +289,9 @@
   "network": "instagram",
   "due": "2026-11-27T14:23:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b087a87f0a96d0f217e5077"
+  "buffer_id": "6b087a87f0a96d0f217e5077",
+  "buffer_status": "sent",
+  "link": "https://www.instagram.com/reel/DgPx5nYBDrq/"
  },
  {
   "id": "2026-11-22_stableronaldo_10_20s0_ig",
@@ -315,7 +321,9 @@
   "network": "youtube",
   "due": "2026-11-27T16:52:00+01:00",
   "status": "geplant",
-  "buffer_id": "6b087a89f0a96d0f217e5111"
+  "buffer_id": "6b087a89f0a96d0f217e5111",
+  "buffer_status": "sent",
+  "link": "https://www.youtube.com/shorts/zJgmMbsEeQA"
  },
  {
   "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261122-2151/2026-11-22_stableronaldo_13_15s1.mp4",
@@ -324,7 +332,8 @@
   "network": "tiktok",
   "due": "2026-11-27T19:38:00+01:00",
   "id": "2026-11-22_stableronaldo_13_15s1_hand",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b09b110015034238d415b3e"
  },
  {
   "url": "https://github.com/bubelman/cliper-/releases/download/clips-20261125-0031/2026-11-25_ohnepixel_12_8s0.mp4",
@@ -333,6 +342,7 @@
   "network": "tiktok",
   "due": "2026-11-27T22:07:00+01:00",
   "id": "2026-11-25_ohnepixel_12_8s0_hand",
-  "status": "offen"
+  "status": "geplant",
+  "buffer_id": "6b09b11134d224b14a9c95f8"
  }
 ]
