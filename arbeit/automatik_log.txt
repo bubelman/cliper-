@@ -508,3 +508,5 @@
 2026-11-27 15:07  10 Clips fertig. Lade für TikTok hoch ...
 2026-11-27 15:07  Vorschau: 10 Clips in clips/vorschau.json (nicht im Puffer).
 2026-11-27 15:07  Fertig. Claude plant die Clips am Abend ein.
+2026-11-27 17:12  Sonderauftrag: {'kanal': 'stableronaldo', 'vorschau': True, 'erneut': True, 'grund': 'Levin 27.11.: Probe-Clips mit besserem Schnitt (Zoom, Lautstärke)'}
+2026-11-27 17:12  Kein Video hat geklappt – heute keine neuen Clips.
