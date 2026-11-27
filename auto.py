@@ -18,8 +18,10 @@ UNTERTITEL = False   # Untertitel automatisch einbrennen (True = an)
 CLIP_SEKUNDEN = 60   # Länge des Grund-Clips (Varianten werden daraus geschnitten)
 VORLAUF_SEKUNDEN = 4 # so viele Sekunden vor dem Höhepunkt starten
 MAX_MINUTEN = 120
-FACECAM_ANTEIL = 0.42  # Höhe der Facecam oben (Levin 25.11.: „immer eine relativ große Facecam“, vorher 0.3)
-FACECAM_ZOOM = 2.4     # Ausschnitt = so viel mal die Gesichtshöhe (kleiner = Gesicht größer, vorher 3.2)    # nur die ersten X Minuten eines Streams nutzen
+FACECAM_ANTEIL = 0.5   # 27.11. Levin: „ganz groß, alles oben mit der Facecam“ (vorher 0.42)
+FACECAM_ALT = 0.42  # Höhe der Facecam oben (Levin 25.11.: „immer eine relativ große Facecam“, vorher 0.3)
+FACECAM_ZOOM = 1.9    # 27.11.: enger um das Gesicht, damit oben nur Facecam ist (vorher 2.4)
+FACECAM_ZOOM_ALT = 2.4     # Ausschnitt = so viel mal die Gesichtshöhe (kleiner = Gesicht größer, vorher 3.2)    # nur die ersten X Minuten eines Streams nutzen
 SPERRE = HIER / "arbeit" / "automatik_laeuft.txt"
 LOG = HIER / "arbeit" / "automatik_log.txt"
 # Einmaliger Sonderauftrag (z. B. Levin 25.11.: Jynxzi-Schach-Clips zur Vorschau).
@@ -187,6 +189,13 @@ def bearbeite_clips(wc, irl=False):
             b_px = min(qb, h_px * 1080 / h_oben)
             h_px = b_px * h_oben / 1080
             b, h = b_px / qb, h_px / qh
+            # 27.11.: Gesicht in die Mitte. Stößt der Ausschnitt an den Bildrand, wird er
+            # kleiner (enger um das Gesicht), statt das Gesicht an den Rand zu schieben.
+            platz = min(mx, 1 - mx) * 2            # so breit darf der Ausschnitt sein, damit mx Mitte bleibt
+            platz_h = min(my, 1 - my) * 2
+            faktor = min(1.0, platz / b if b else 1.0, platz_h / h if h else 1.0)
+            if faktor >= 0.6:                       # nicht zu stark reinzoomen (sonst unscharf)
+                b, h = b * faktor, h * faktor
             x = min(max(0.0, mx - b / 2), 1 - b)
             y = min(max(0.0, my - h / 2), 1 - h)
             breite_spiel = 1080 / (1920 - h_oben) * qh / qb   # Spiel: Mitte, volle Höhe
