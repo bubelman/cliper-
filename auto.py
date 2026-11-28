@@ -121,6 +121,22 @@ def finde_gesichter(cv2, modell, bild):
             if hautanteil(cv2, bild, tuple(int(v) for v in b)) >= 0.25]
 
 
+def bewegt_sich(graue, box):
+    """Mittlere Veränderung (0-255) im Gesichtsbereich zwischen aufeinanderfolgenden Proben."""
+    if len(graue) < 3:
+        return 99.0
+    mx, my, mw, mh = box
+    werte = []
+    for a, b in zip(graue, graue[1:]):
+        h, w = a.shape[:2]
+        x0, x1 = int(max(0, (mx - mw) * w)), int(min(w, (mx + mw) * w))
+        y0, y1 = int(max(0, (my - mh) * h)), int(min(h, (my + mh) * h))
+        if x1 - x0 < 4 or y1 - y0 < 4 or b.shape != a.shape:
+            continue
+        werte.append(float(abs(a[y0:y1, x0:x1].astype("int16") - b[y0:y1, x0:x1].astype("int16")).mean()))
+    return sorted(werte)[len(werte) // 2] if werte else 99.0
+
+
 def analysiere_bild(wc, video, proben=14):
     """Sucht Gesichter: feste Facecam-Position und/oder wo das Hauptgesicht ist."""
     cv2, modell = wc.hole_opencv()
@@ -129,7 +145,7 @@ def analysiere_bild(wc, video, proben=14):
         return {"facecam": None, "gesicht_x": None}
     cap = cv2.VideoCapture(str(video))
     gesamt = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) or 1
-    gross, zellen = [], {}
+    gross, zellen, graue = [], {}, []
     gelesen = 0
     for i in range(proben):
         cap.set(cv2.CAP_PROP_POS_FRAMES, int(gesamt * (i + 0.5) / proben))
@@ -141,6 +157,7 @@ def analysiere_bild(wc, video, proben=14):
         f = min(1.0, 1920 / bb)
         klein = cv2.resize(bild, (int(bb * f), int(hb * f)))
         K = klein.shape
+        graue.append(cv2.cvtColor(cv2.resize(klein, (480, int(480 * K[0] / K[1]))), cv2.COLOR_BGR2GRAY))
         treffer = finde_gesichter(cv2, modell, klein)
         boxen = [((x + w / 2) / K[1], (y + h / 2) / K[0], w / K[1], h / K[0])
                  for x, y, w, h in treffer]
@@ -162,9 +179,17 @@ def analysiere_bild(wc, video, proben=14):
         return ergebnis
     # Facecam = kleines Gesicht, das in den meisten Bildern an derselben Stelle ist
     if zellen:
-        beste = max(zellen.values(), key=len)
-        if len(beste) >= gelesen * 0.5:
-            ergebnis["facecam"] = tuple(st.median(b[k] for b in beste) for k in range(4))
+        # 28.11.: Comic-/gezeichnete Köpfe (Kanal-Banner, chess.com-Coach) stehen still.
+        # Ein echtes Gesicht bewegt sich zwischen den Proben - sonst ist es keine Facecam.
+        for beste in sorted(zellen.values(), key=len, reverse=True):
+            if len(beste) < gelesen * 0.5:
+                break
+            box = tuple(st.median(b[k] for b in beste) for k in range(4))
+            bewegung = bewegt_sich(graue, box)
+            if bewegung >= 5.0:
+                ergebnis["facecam"] = box
+                break
+            log(f"  Gesicht bei {box[0]:.2f}/{box[1]:.2f} bewegt sich nicht ({bewegung:.1f}) -> kein echtes Gesicht")
     if len(gross) >= gelesen * 0.3:
         ergebnis["gesicht_x"] = st.median(g[0] for g in gross)
     return ergebnis
@@ -415,6 +440,12 @@ def teste_varianten(wc):
         if not teile:
             teile = [(start, ende)]
         dauer = sum(b - a for a, b in teile)
+        if dauer < 7 and len(teile) > 1:
+            # 28.11.: zu kurz geworden (z. B. 4,7 s) -> Pausen drinlassen
+            teile, dauer = [(start, ende)], ende - start
+        if dauer < 7 and gesamt - start >= 7:
+            ende = min(gesamt, start + 8.0)
+            teile, dauer = [(start, ende)], ende - start
         try:
             QB, QH = (int(x) for x in subprocess.run(
                 ["ffprobe", "-v", "error", "-select_streams", "v", "-show_entries", "stream=width,height",
